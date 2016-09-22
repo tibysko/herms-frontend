@@ -1,0 +1,70 @@
+
+<h1>Valves</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Auto</th>
+            <th>Close</th>
+            <th>Open</th>        
+            <th>Closed</th>
+            <th>Opened</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pin of pinsValves">
+            <td>{{pin.name}}</td>
+            <td><button class="btn btn-default">Auto</button></td>
+            <td><button class="btn btn-default">Close</button></td>
+            <td><button class="btn btn-default">Open</button></td>
+            <td class="danger" >{{pin.closed}}</td>
+            <td class="success">{{pin.opened}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Controllers</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Auto</th>
+            <th>SP</th>
+            <th>PV</th>
+            <th>OUT</th>
+            <th>Para</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pin of pinsValves">
+            <td>{{pin.name}}</td>
+            <td><button class="btn btn-default">Auto</button></td>
+            <td><input type="number" ></td>
+            <td>10 C</td>
+            <td><input type="number"></td>
+            <td><button class="btn btn-default">Go to Para</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Pumps</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Auto</th>
+            <th>Stop</th>
+            <th>Start</th>
+            <th>Running</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pin of pinsValves">
+            <td>{{pin.name}}</td>
+            <td><button class="btn btn-default">Auto</button></td>
+            <td><button class="btn btn-default">Close</button></td>
+            <td><button class="btn btn-default">Open</button></td>
+            <td class="success"></td>
+        </tr>
+    </tbody>
+</table>
