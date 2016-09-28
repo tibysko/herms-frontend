@@ -6,6 +6,7 @@ export enum ValveStatus {
 
 export class Valve {
     private status: ValveStatus;
+    private name: string;
 
     constructor() {
         this.status = ValveStatus.ADJUSTING;
@@ -17,5 +18,13 @@ export class Valve {
 
     getStatus(){
         return this.status;
+    }
+
+    getName(): string {
+        return this.name;
+    }
+
+    setName(name: string){
+        this.name = name;
     }
 }

@@ -1,3 +1,5 @@
+import {environment} from '../../environments/environment';
+
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
@@ -7,7 +9,7 @@ import { Pin } from '../model/pin.interface';
 
 @Injectable()
 export class PinNotificationService {
-    private url = 'http://localhost:8080';
+    private url = environment.websocketUrl;
     private socket: any;
     private pinsObservable: any;
 

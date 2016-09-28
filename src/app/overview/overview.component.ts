@@ -45,8 +45,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.connection = this.pinValveService.getValves().subscribe((valves: Map<String, Valve>) => {
-            // this.autoSparage: String = this.getColor(valves.get('AUTO_SPARAGE');         
+        this.connection = this.pinValveService.getValves().subscribe((valves: Map<String, Valve>) => {  
             this.heCwIn = this.getColor(valves.get('HE_CW_IN'));
             this.heCwOut = this.getColor(valves.get('HE_CW_OUT'));
             this.heHwIn = this.getColor(valves.get('HE_HW_IN'));
@@ -55,7 +54,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
             this.ketWortIn = this.getColor(valves.get('KET_WORT_IN'));
             this.ketWortOut = this.getColor(valves.get('KET_WORT_OUT'));
             this.mltHwIn = this.getColor(valves.get('MLT_HW_IN'));
-            //this.mltKetByPass = this.getColor(valves.get('MLT_KET_BY_PASS'));
+            this.mltKetByPass = this.getColor(valves.get('MLT_KET_BYPASS'));
             this.mltWortIn = this.getColor(valves.get('MLT_WORT_IN'));
             this.mltWortOut = this.getColor(valves.get('MLT_WORT_OUT'));
         });
