@@ -1,6 +1,6 @@
 <h1>
     Valves</h1>
-<table class="table table-striped">
+<table class="table">
     <thead>
         <tr>
             <th>Name</th>
@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let valve of valves" [ngClass]="getRowClass(valve)">
-            <td>{{valve.getName()}}</td>
+            <th>{{valve.getName()}}</th>
             <td><button class="btn btn-default" disabled>Auto</button></td>
             <td><button class="btn btn-default" (mousedown)="startClosingValve(valve)" (mouseup)="stopClosingValve(valve)" >Close</button></td>
             <td><button class="btn btn-default" (mousedown)="startOpeningValve(valve)" (mouseup)="stopOpeningValve(valve)">Open</button></td>
@@ -36,11 +36,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let pin of pinsValves">
-            <td>{{pin.name}}</td>
+        <tr>
+            <td>Pid controller</td>
             <td><button class="btn btn-default">Auto</button></td>
             <td><input type="number"></td>
-            <td>10 C</td>
+            <td>{{pidController.temperature}}</td>
             <td><input type="number"></td>
             <td><button class="btn btn-default">Go to Para</button></td>
         </tr>
@@ -59,11 +59,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let pin of pinsValves">
-            <td>{{pin.name}}</td>
-            <td><button class="btn btn-default">Auto</button></td>
-            <td><button class="btn btn-default">Close</button></td>
-            <td><button class="btn btn-default">Open</button></td>
+        <tr *ngFor="let motor of motors">
+            <td>{{motor.getName()}}</td>
+            <td><button class="btn btn-default" disabled>Auto</button></td>
+            <td><button class="btn btn-default" (click)="stopMotor(motor)">Stop</button></td>
+            <td><button class="btn btn-default" (click)="startMotor(motor)">Start</button></td>
             <td class="success"></td>
         </tr>
     </tbody>

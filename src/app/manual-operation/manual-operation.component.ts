@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { Pin } from '../model/pin.interface';
 import { Valve, ValveStatus } from '../model/valve';
+import { Motor } from '../model/motor';
 import { PinValveService } from '../core/pin-valve.service';
-import { PinService } from '../core/pin.service';
+import { PinService, PinValue } from '../core/pin.service';
+import { PidController } from './pid-controller.interface';
+import { PidControllerService } from './pid-controller.service';
+
 
 @Component({
     selector: 'manual-operation',
@@ -11,18 +15,29 @@ import { PinService } from '../core/pin.service';
 })
 
 export class ManualOperationComponent implements OnInit {
+    motors: Motor[] = [];
     pins: Pin[] = [];
     pinsValves: any = [];
-    showExtraPinInfo: boolean = false;
     valves: Valve[] = [];
     valvesObservable: any;
+    pidControllerObservable: any;
+    pidController: PidController = { 'temperature': "0", "pidOutput": "0" };
 
     constructor(private pinValveService: PinValveService,
-        private pinService: PinService) { }
+        private pinService: PinService,
+        private pidControllerService: PidControllerService) {
+
+        this.motors.push(new Motor('HW_PUMP', 'HW_PUMP'));
+        this.motors.push(new Motor('WORT_PUMP', 'WORT_PUMP'));
+    }
 
     ngOnInit() {
         this.valvesObservable = this.pinValveService.getValvesAsArray().subscribe((data: Valve[]) => {
             this.valves = data.sort();
+        });
+
+        this.pidControllerObservable = this.pidControllerService.getPidControllerObservable().subscribe((pidController: PidController) => {
+            this.pidController = pidController;
         });
     }
 
@@ -51,24 +66,12 @@ export class ManualOperationComponent implements OnInit {
         this.pinValveService.stopOpenValve(valve);
     }
 
-    operationOn(pin: Pin) {
-        // this.pinService.write(pin, true);
+    startMotor(motor: Motor) {
+        this.pinService.write(motor.getPin(), PinValue.HIGH);
     }
 
-    operationOff(pin: Pin) {
-        //this.pinService.write(pin, false);
+    stopMotor(motor: Motor) {
+        this.pinService.write(motor.getPin(), PinValue.LOW);
     }
 
-    operationRead(selectedPin: Pin) {
-        //let pinRow = this.pins.filter(pin => pin.id === selectedPin.id) as Pin[];
-
-        //this.pinService.read(selectedPin).then(result => {
-        //  if(pinRow.length > 0) pinRow[0].value = result.value;
-        //});
-    }
-
-    togglePinInfo() {
-        console.log('toogle');
-        this.showExtraPinInfo = !this.showExtraPinInfo;
-    }
 }
