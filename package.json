@@ -4,7 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve",
+    "start": "node_modules/.bin/ng serve",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
@@ -33,7 +33,7 @@
     "@types/jquery": "^1.10.31",
     "@types/materialize-css": "^0.97.30",
     "@types/socket.io-client": "^1.4.26",
-    "angular-cli": "1.0.0-beta.14",
+    "angular-cli": "^1.0.0-beta.17",
     "codelyzer": "~0.0.26",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",
