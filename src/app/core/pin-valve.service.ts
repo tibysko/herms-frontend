@@ -29,6 +29,7 @@ export class PinValveService {
         this.valves.set('MLT_HW_IN', new Valve());
         this.valves.set('MLT_KET_BYPASS', new Valve());
         this.valves.set('MLT_WORT_IN', new Valve());
+        this.valves.set('MLT_WORT_OUT', new Valve());
         this.valves.set('KET_WORT_OUT', new Valve());
 
         this.connection = this.pinNotificationService.getPinsObservable().subscribe(pins => {

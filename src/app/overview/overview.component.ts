@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 //import {PinNotificationService} from '../core/pin-notification.service';
 import { PinValveService } from '../core/pin-valve.service';
-import { Pin } from '../model/pin.interface';
+import { PinNotificationService } from '../core/pin-notification.service';
+import { Pin } from '../model/pin';
 import { Valve, ValveStatus } from '../model/valve';
 
 @Component({
@@ -12,6 +13,9 @@ import { Valve, ValveStatus } from '../model/valve';
 
 export class OverviewComponent implements OnInit, OnDestroy {
     private connection: any;
+    private connectionPin: any;
+
+    pins: any;
 
     autoSparage: String;
     heCwIn: String;
@@ -30,8 +34,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
     static COLOR_GREEN: String = `rgba(0, 255, 0,1)`;
     static COLOR_RED: String = `rgba(255, 0, 0,1)`;
 
-    constructor(public pinValveService: PinValveService) {}
-    
+    constructor(public pinValveService: PinValveService,
+        private pinNotificationService: PinNotificationService) { }
+
     private getColor(valve: Valve) {
         if (valve) {
             if (valve.getStatus() === ValveStatus.OPENED) {
@@ -45,7 +50,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.connection = this.pinValveService.getValves().subscribe((valves: Map<String, Valve>) => {  
+        this.connection = this.pinValveService.getValves().subscribe((valves: Map<String, Valve>) => {
             this.heCwIn = this.getColor(valves.get('HE_CW_IN'));
             this.heCwOut = this.getColor(valves.get('HE_CW_OUT'));
             this.heHwIn = this.getColor(valves.get('HE_HW_IN'));
@@ -58,9 +63,14 @@ export class OverviewComponent implements OnInit, OnDestroy {
             this.mltWortIn = this.getColor(valves.get('MLT_WORT_IN'));
             this.mltWortOut = this.getColor(valves.get('MLT_WORT_OUT'));
         });
+
+        this.connectionPin = this.pinNotificationService.getPinsObservable().subscribe(pins => {
+            this.pins = JSON.stringify(pins).replace(',', '<br />');
+        });
     }
 
     ngOnDestroy() {
         this.connection.unsubscribe();
+        this.connectionPin.unsubscribe();
     }
 }

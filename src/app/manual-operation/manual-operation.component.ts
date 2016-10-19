@@ -6,6 +6,7 @@ import { Motor } from '../model/motor';
 import { PinValveService } from '../core/pin-valve.service';
 import { PinService, PinValue } from '../core/pin.service';
 import { PidController } from './pid-controller.interface';
+import { PidControllerConfig } from './pid-controller-config.interface';
 import { PidControllerService } from './pid-controller.service';
 
 
@@ -22,6 +23,15 @@ export class ManualOperationComponent implements OnInit {
     valvesObservable: any;
     pidControllerObservable: any;
     pidController: PidController = { 'temperature': "0", "pidOutput": "0" };
+  
+    config: PidControllerConfig = {
+        mode: 'auto',
+        output: 0,
+        setPoint: 0,
+        kp: 0,
+        ki: 0,
+        kd: 0
+    }
 
     constructor(private pinValveService: PinValveService,
         private pinService: PinService,
@@ -39,6 +49,10 @@ export class ManualOperationComponent implements OnInit {
         this.pidControllerObservable = this.pidControllerService.getPidControllerObservable().subscribe((pidController: PidController) => {
             this.pidController = pidController;
         });
+
+        this.pidControllerService.getStatus().then(data => {
+            this.config = data.json() as PidControllerConfig;
+        });
     }
 
     getRowClass(valve: Valve) {
@@ -48,6 +62,19 @@ export class ManualOperationComponent implements OnInit {
             return "success";
         else
             return "";
+    }
+
+    changePidCtrlMode(mode: string) {
+        let newMode: string = mode.toLowerCase() === 'auto' ? 'manual' : 'auto';
+        this.config.mode = newMode;
+        
+        this.pidControllerService.setConfig(this.config).then(data => {        
+            this.config = data.json() as PidControllerConfig;
+        });
+    }
+
+    setPidController() {
+        this.pidControllerService.setConfig(this.config);
     }
 
     startClosingValve(valve) {

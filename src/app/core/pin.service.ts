@@ -6,8 +6,8 @@ import { Pin } from '../model/pin.interface';
 import { environment } from '../../environments/environment';
 
 export class PinValue {
-    public static HIGH: boolean = true;
-    public static LOW: boolean = false;
+    public static HIGH: number =  1;
+    public static LOW: number = 0;
 }
 
 @Injectable()
@@ -25,10 +25,10 @@ export class PinService {
             .then(response => response.json() as Pin[]);
     }
 
-    write(pinId: String, value: boolean) {
+    write(pinId: String, value: number) {
         let url = `${this.apiUrl}/${pinId}`;
 
-        let body = JSON.stringify({ "pinValue": (value) ? "true" : "false" });
+        let body = JSON.stringify({ "pinValue": value });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
