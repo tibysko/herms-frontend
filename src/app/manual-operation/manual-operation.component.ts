@@ -36,7 +36,7 @@ export class ManualOperationComponent implements OnInit {
     constructor(private pinValveService: PinValveService,
         private pinService: PinService,
         private pidControllerService: PidControllerService) {
-
+        
         this.motors.push(new Motor('HW_PUMP', 'HW_PUMP'));
         this.motors.push(new Motor('WORT_PUMP', 'WORT_PUMP'));
     }
@@ -61,7 +61,7 @@ export class ManualOperationComponent implements OnInit {
         else if (valve.getStatus() === ValveStatus.OPENED)
             return "success";
         else
-            return "";
+            return ""; 
     }
 
     changePidCtrlMode(mode: string) {

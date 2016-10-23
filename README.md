@@ -9,3 +9,4 @@ Brewery frontend
 
 ## Start frontend
 1. Start backend, run: `npm start`
+2. Open browser and go to `http://localhost:4200/overview`
