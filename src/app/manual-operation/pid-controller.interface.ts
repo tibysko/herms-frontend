@@ -1,4 +1,5 @@
 export interface PidController {
-    temperature: String;
-    pidOutput: String;
+    temperature: string;
+    pidOutput: string;
+    name: string;
 }

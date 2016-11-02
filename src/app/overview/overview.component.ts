@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 //import {PinNotificationService} from '../core/pin-notification.service';
 import { PinValveService } from '../core/pin-valve.service';
-import { PinNotificationService } from '../core/pin-notification.service';
+import { SocketService } from '../core/socket.service';
 import { Pin } from '../model/pin';
 import { Valve, ValveStatus } from '../model/valve';
 
@@ -30,12 +30,14 @@ export class OverviewComponent implements OnInit, OnDestroy {
     mltWortIn: String;
     mltWortOut: String;
 
+    nisse: string = "tom";
+
     static COLOR_BLACK: String = `rgba(0, 0, 0,1)`;
     static COLOR_GREEN: String = `rgba(0, 255, 0,1)`;
     static COLOR_RED: String = `rgba(255, 0, 0,1)`;
 
     constructor(public pinValveService: PinValveService,
-        private pinNotificationService: PinNotificationService) { }
+        private socketService: SocketService) { }
 
     private getColor(valve: Valve) {
         if (valve) {
@@ -64,9 +66,13 @@ export class OverviewComponent implements OnInit, OnDestroy {
             this.mltWortOut = this.getColor(valves.get('MLT_WORT_OUT'));
         });
 
-        this.connectionPin = this.pinNotificationService.getPinsObservable().subscribe(pins => {
-            this.pins = JSON.stringify(pins).replace(',', '<br />');
+        this.socketService.getSocket().on('nisse', (data) => {
+            this.nisse = data;
         });
+
+       /* this.connectionPin = this.pinNotificationService.getPinsObservable().subscribe(pins => {
+            this.pins = JSON.stringify(pins).replace(',', '<br />');
+        });*/
     }
 
     ngOnDestroy() {

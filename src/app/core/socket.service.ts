@@ -8,7 +8,7 @@ import * as io from 'socket.io-client';
 import { Pin } from '../model/pin.interface';
 
 @Injectable()
-export class PinNotificationService {
+export class SocketService {
     private url = environment.websocketUrl;
     private socket: any;
     private pinsObservable: any;
@@ -25,5 +25,9 @@ export class PinNotificationService {
 
     getPinsObservable() {
         return this.pinsObservable;
+    }
+
+    getSocket(){
+        return this.socket;
     }
 }

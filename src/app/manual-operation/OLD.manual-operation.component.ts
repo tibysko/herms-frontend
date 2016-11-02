@@ -22,10 +22,10 @@ export class ManualOperationComponent implements OnInit {
     valves: Valve[] = [];
     valvesObservable: any;
     pidControllerObservable: any;
-    pidControllers: PidController[] = [{ 'temperature': "0", "pidOutput": "0", name: 'PidHLT' },{ 'temperature': "0", "pidOutput": "0", name: 'PidWORT' }]; 
+    pidController: PidController = { 'temperature': "0", "pidOutput": "0" };
   
     config: PidControllerConfig = {
-        mode: 'manual',
+        mode: 'auto',
         output: 0,
         setPoint: 0,
         kp: 0,
@@ -39,8 +39,6 @@ export class ManualOperationComponent implements OnInit {
         
         this.motors.push(new Motor('HW_PUMP', 'HW_PUMP'));
         this.motors.push(new Motor('WORT_PUMP', 'WORT_PUMP'));
-
-        //{ 'temperature': "0", "pidOutput": "0" }; TODO initialize PidControllers
     }
 
     ngOnInit() {
@@ -49,7 +47,7 @@ export class ManualOperationComponent implements OnInit {
         });
 
         this.pidControllerObservable = this.pidControllerService.getPidControllerObservable().subscribe((pidController: PidController) => {
-            this.pidControllers[0] = pidController;
+            this.pidController = pidController;
         });
 
         this.pidControllerService.getStatus().then(data => {

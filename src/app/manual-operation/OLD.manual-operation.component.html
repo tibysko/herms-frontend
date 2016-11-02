@@ -1,0 +1,79 @@
+<h1>
+	Valves</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Auto</th>
+			<th>Close</th>
+			<th>Open</th>
+			<!-- th>Closed</th>
+            <th>Opened</th-->
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let valve of valves" [ngClass]="getRowClass(valve)">
+			<th>{{valve.getName()}}</th>
+			<td><button class="btn btn-default" disabled>Auto</button></td>
+			<td><button class="btn btn-default" (mousedown)="startClosingValve(valve)" (mouseup)="stopClosingValve(valve)">Close</button></td>
+			<td><button class="btn btn-default" (mousedown)="startOpeningValve(valve)" (mouseup)="stopOpeningValve(valve)">Open</button></td>
+			<!-- td class="danger">{{valve.getStatus()}}</td>
+            <td class="success"></td-->
+		</tr>
+	</tbody>
+</table>
+
+<h1>Controllers</h1>
+<h4>PID HLT</h4> 
+
+<div class="form-inline">
+	<div class="form-group">
+		<button class="btn btn-default" (click)="changePidCtrlMode(config.mode)">{{config.mode}}</button>
+		<span>{{ pidController.temperature | number:'2.1-2' }} C</span>
+		<span>Set point: {{config.setPoint}}</span>
+		<span>Output: {{config.output}}</span>
+		<span>Kp: {{config.kp}}</span>
+		<span>Ki: {{config.ki}}</span>
+		<span>Kd: {{config.kd}}</span>
+	</div>
+</div>
+<div class="form-inline">
+	<div class="form-group">
+		<label>Set point</label><input [(ngModel)]="config.setPoint" type="number"> 
+		<label>Set output</label><input [(ngModel)]="config.output" type="number"> 
+	</div>
+</div>
+<div class="form-inline">
+	<div class="form-group">
+		<label>Kp</label><input [(ngModel)]="config.kp" type="number">
+		<label>Ki</label><input [(ngModel)]="config.ki" type="number">
+		<label>Kd</label><input [(ngModel)]="config.kd" type="number">
+	</div>
+</div>
+<div class="form-inline">
+	<div class="button-group">
+		<button class="btn btn-default" (click)="setPidController()">Set</button>
+	</div>
+</div>
+
+<h1>Pumps</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Auto</th>
+			<th>Stop</th>
+			<th>Start</th>
+			<th>Running</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let motor of motors">
+			<td>{{motor.getName()}}</td>
+			<td><button class="btn btn-default" disabled>Auto</button></td>
+			<td><button class="btn btn-default" (click)="stopMotor(motor)">Stop</button></td>
+			<td><button class="btn btn-default" (click)="startMotor(motor)">Start</button></td>
+			<td class="success"></td>
+		</tr>
+	</tbody>
+</table>
