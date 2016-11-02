@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  websocketUrl: 'http://raspberrypi:8080',
-  apiUrl: 'http://raspberrypi:8081/api'
+  websocketUrl: 'http://192.168.1.146:8081',
+  apiUrl: 'http://192.168.1.146:8080/api'
 };
