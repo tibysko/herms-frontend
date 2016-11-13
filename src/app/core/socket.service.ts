@@ -1,33 +1,53 @@
-import {environment} from '../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+
 import * as io from 'socket.io-client';
 
 import { Pin } from '../model/pin.interface';
+import { environment } from '../../environments/environment';
+import { Valve } from '../model/valve.interface';
+import { PidControllerData } from '../manual-operation/pid-controller-data.interface';
 
 @Injectable()
 export class SocketService {
     private url = environment.websocketUrl;
     private socket: any;
-    private pinsObservable: any;
+    private pinsObservable: Observable<Pin[]>;
+    private valvesObservable: Observable<Valve[]>;
+    private pidControllersDataObservable: Observable<PidControllerData[]>;
 
     constructor() {
         this.socket = io(this.url);
 
         this.pinsObservable = new Observable(observer => {
-            this.socket.on('pins', (data) => {
-                observer.next(data);
+            this.socket.on('pins', (pins: Pin[]) => {
+                observer.next(pins);
+            });
+        });
+
+        this.valvesObservable = new Observable(observer => {
+            this.socket.on('valves', (valves: Valve[]) => {
+                observer.next(valves);
+            });
+        });
+
+        this.pidControllersDataObservable = new Observable(observer => {
+            this.socket.on('controllers', (pidControllers: PidControllerData[]) => {
+                observer.next(pidControllers);
             });
         });
     }
 
-    getPinsObservable() {
+    getPins(): Observable<Pin[]> {
         return this.pinsObservable;
     }
 
-    getSocket(){
-        return this.socket;
+    getValves(): Observable<Valve[]> {
+        return this.valvesObservable;
+    }
+
+    getControllersData(): Observable<PidControllerData[]> {
+        return this.pidControllersDataObservable;
     }
 }

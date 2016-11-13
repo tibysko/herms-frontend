@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
 
 import { Pin } from '../model/pin.interface';
-import { Valve, ValveStatus } from '../model/valve';
+import { Valve } from '../model/valve.interface';
 import { Motor } from '../model/motor';
-import { PinValveService } from '../core/pin-valve.service';
 import { PinService, PinValue } from '../core/pin.service';
 import { PidController } from './pid-controller.interface';
 import { PidControllerConfig } from './pid-controller-config.interface';
+import { PidControllerData } from './pid-controller-data.interface';
 import { PidControllerService } from './pid-controller.service';
-
+import { ValveService, State } from './valve.service';
+import { SocketService } from '../core/socket.service';
 
 @Component({
     selector: 'manual-operation',
@@ -16,83 +18,99 @@ import { PidControllerService } from './pid-controller.service';
 })
 
 export class ManualOperationComponent implements OnInit {
+    
     motors: Motor[] = [];
     pins: Pin[] = [];
     pinsValves: any = [];
     valves: Valve[] = [];
     valvesObservable: any;
     pidControllerObservable: any;
-    pidControllers: PidController[] = [{ 'temperature': "0", "pidOutput": "0", name: 'PidHLT' },{ 'temperature': "0", "pidOutput": "0", name: 'PidWORT' }]; 
-  
-    config: PidControllerConfig = {
-        mode: 'manual',
-        output: 0,
-        setPoint: 0,
-        kp: 0,
-        ki: 0,
-        kd: 0
-    }
+    pidControllers: PidController[] = [];
 
-    constructor(private pinValveService: PinValveService,
-        private pinService: PinService,
-        private pidControllerService: PidControllerService) {
-        
+    constructor(private pinService: PinService,
+        private socketService: SocketService,
+        private pidControllerService: PidControllerService,
+        private valveService: ValveService) {
+
         this.motors.push(new Motor('HW_PUMP', 'HW_PUMP'));
         this.motors.push(new Motor('WORT_PUMP', 'WORT_PUMP'));
-
-        //{ 'temperature': "0", "pidOutput": "0" }; TODO initialize PidControllers
     }
 
     ngOnInit() {
-        this.valvesObservable = this.pinValveService.getValvesAsArray().subscribe((data: Valve[]) => {
+        this.valvesObservable = this.socketService.getValves().subscribe((data: Valve[]) => {
             this.valves = data.sort();
         });
 
-        this.pidControllerObservable = this.pidControllerService.getPidControllerObservable().subscribe((pidController: PidController) => {
-            this.pidControllers[0] = pidController;
+        this.pidControllerService.getStatus().then(data => {
+            this.pidControllers = data.json() as PidController[];
+            for (let pidController of this.pidControllers) {
+                pidController.newConfig = this.copyConfig(pidController.config);
+            }
         });
 
-        this.pidControllerService.getStatus().then(data => {
-            this.config = data.json() as PidControllerConfig;
+        this.pidControllerObservable = this.socketService.getControllersData().subscribe((pidControllersData: PidControllerData[]) => {
+            for (let pidController of this.pidControllers) {
+                for (let data of pidControllersData) {
+                    if (pidController.name === data.name) {
+                        pidController.data = data;
+                        break;
+                    }
+                }
+            }
         });
     }
 
     getRowClass(valve: Valve) {
-        if (valve.getStatus() === ValveStatus.CLOSED)
+        let state = State[valve.status];
+
+        if (valve.status === State[State.CLOSED])
             return "danger";
-        else if (valve.getStatus() === ValveStatus.OPENED)
+        else if (valve.status === State[State.OPENED])
             return "success";
         else
-            return ""; 
+            return "";
     }
 
-    changePidCtrlMode(mode: string) {
-        let newMode: string = mode.toLowerCase() === 'auto' ? 'manual' : 'auto';
-        this.config.mode = newMode;
-        
-        this.pidControllerService.setConfig(this.config).then(data => {        
-            this.config = data.json() as PidControllerConfig;
+    private copyConfig(config: PidControllerConfig): PidControllerConfig {
+        return {
+            mode: config.mode,
+            kp: config.kp,
+            ki: config.ki,
+            kd: config.kd,
+            output: config.output,
+            setPoint: config.setPoint
+        }
+    }
+
+    togglePidCtrlMode(pidController: PidController) {
+        let newMode = pidController.newConfig.mode.toLowerCase() === 'auto' ? 'manual' : 'auto';
+        pidController.newConfig.mode = newMode;
+
+        this.pidControllerService.setConfig(pidController.name, pidController.newConfig).then(data => {
+            pidController.config = this.copyConfig(pidController.newConfig);
         });
     }
 
-    setPidController() {
-        this.pidControllerService.setConfig(this.config);
+    setPidController(pidController: PidController) {
+        this.pidControllerService.setConfig(pidController.name, pidController.newConfig).then(data => {
+            pidController.config = this.copyConfig(pidController.newConfig);
+        });
     }
 
-    startClosingValve(valve) {
-        this.pinValveService.startClosingValve(valve);
+    startClosingValve(valve: Valve) {
+        this.valveService.setState(valve.name, State.START_CLOSE);
     }
 
     stopClosingValve(valve) {
-        this.pinValveService.stopClosingValve(valve);
+        this.valveService.setState(valve.name, State.STOP_CLOSE);
     }
 
     startOpeningValve(valve) {
-        this.pinValveService.startOpenValve(valve);
+        this.valveService.setState(valve.name, State.START_OPEN);
     }
 
     stopOpeningValve(valve) {
-        this.pinValveService.stopOpenValve(valve);
+        this.valveService.setState(valve.name, State.STOP_OPEN);
     }
 
     startMotor(motor: Motor) {

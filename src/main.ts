@@ -1,6 +1,4 @@
 import './polyfills.ts';
-//*import * as $ from 'jquery';
-//*window['$'] = window['jQuery'] = $;
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';

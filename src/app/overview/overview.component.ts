@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-//import {PinNotificationService} from '../core/pin-notification.service';
-import { PinValveService } from '../core/pin-valve.service';
+
 import { SocketService } from '../core/socket.service';
-import { Pin } from '../model/pin';
-import { Valve, ValveStatus } from '../model/valve';
+import { Valve } from '../model/valve.interface';
 
 @Component({
     selector: 'overview',
@@ -13,37 +11,31 @@ import { Valve, ValveStatus } from '../model/valve';
 
 export class OverviewComponent implements OnInit, OnDestroy {
     private connection: any;
-    private connectionPin: any;
 
-    pins: any;
-
-    autoSparage: String;
-    heCwIn: String;
-    heCwOut: String;
-    heHwIn: String;
-    heHwOut: String;
-    ketRecirc: String;
-    ketWortIn: String;
-    ketWortOut: String;
-    mltHwIn: String;
-    mltKetByPass: String;
-    mltWortIn: String;
-    mltWortOut: String;
-
-    nisse: string = "tom";
+    AUTO_SPARAGE: String;
+    HE_CW_IN: String;
+    HE_CW_OUT: String;
+    HE_HW_IN: String;
+    HE_HW_OUT: String;
+    KET_RECIRC: String;
+    KET_WORT_IN: String;
+    KET_WORT_OUT: String;
+    MLT_HW_IN: String;
+    MLT_KET_BYPASS: String;
+    MLT_WORT_IN: String;
+    MLT_WORT_OUT: String;
 
     static COLOR_BLACK: String = `rgba(0, 0, 0,1)`;
     static COLOR_GREEN: String = `rgba(0, 255, 0,1)`;
     static COLOR_RED: String = `rgba(255, 0, 0,1)`;
 
-    constructor(public pinValveService: PinValveService,
-        private socketService: SocketService) { }
+    constructor(private socketService: SocketService) { }
 
     private getColor(valve: Valve) {
         if (valve) {
-            if (valve.getStatus() === ValveStatus.OPENED) {
+            if (valve.status === 'OPENED') {
                 return OverviewComponent.COLOR_GREEN;
-            } else if (valve.getStatus() === ValveStatus.CLOSED) {
+            } else if (valve.status === 'CLOSED') {
                 return OverviewComponent.COLOR_RED;
             } else {
                 return OverviewComponent.COLOR_BLACK;
@@ -52,31 +44,16 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.connection = this.pinValveService.getValves().subscribe((valves: Map<String, Valve>) => {
-            this.heCwIn = this.getColor(valves.get('HE_CW_IN'));
-            this.heCwOut = this.getColor(valves.get('HE_CW_OUT'));
-            this.heHwIn = this.getColor(valves.get('HE_HW_IN'));
-            this.heHwOut = this.getColor(valves.get('HE_HW_OUT'));
-            this.ketRecirc = this.getColor(valves.get('KET_RECIRC'));
-            this.ketWortIn = this.getColor(valves.get('KET_WORT_IN'));
-            this.ketWortOut = this.getColor(valves.get('KET_WORT_OUT'));
-            this.mltHwIn = this.getColor(valves.get('MLT_HW_IN'));
-            this.mltKetByPass = this.getColor(valves.get('MLT_KET_BYPASS'));
-            this.mltWortIn = this.getColor(valves.get('MLT_WORT_IN'));
-            this.mltWortOut = this.getColor(valves.get('MLT_WORT_OUT'));
-        });
 
-        this.socketService.getSocket().on('nisse', (data) => {
-            this.nisse = data;
-        });
+        this.connection = this.socketService.getValves().subscribe((valves: Valve[]) => {
+            for (let valve of valves) {
+                this[valve.name] = OverviewComponent.COLOR_GREEN;// this.getColor(valve);
 
-       /* this.connectionPin = this.pinNotificationService.getPinsObservable().subscribe(pins => {
-            this.pins = JSON.stringify(pins).replace(',', '<br />');
-        });*/
+            }
+        });
     }
 
     ngOnDestroy() {
         this.connection.unsubscribe();
-        this.connectionPin.unsubscribe();
     }
 }
