@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
+import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import { NgForm } from '@angular/forms';
 
 import { Pin } from '../model/pin.interface';
 import { Valve } from '../model/valve.interface';
@@ -8,6 +9,7 @@ import { PinService, PinValue } from '../core/pin.service';
 import { PidController } from './pid-controller.interface';
 import { PidControllerConfig } from './pid-controller-config.interface';
 import { PidControllerData } from './pid-controller-data.interface';
+import { PidControllerModal } from './pid-controller-modal';
 import { PidControllerService } from './pid-controller.service';
 import { ValveService, State } from './valve.service';
 import { SocketService } from '../core/socket.service';
@@ -18,7 +20,8 @@ import { SocketService } from '../core/socket.service';
 })
 
 export class ManualOperationComponent implements OnInit {
-    
+    @ViewChild('childModal') public pidControllerModal: ModalDirective;
+
     motors: Motor[] = [];
     pins: Pin[] = [];
     pinsValves: any = [];
@@ -26,6 +29,16 @@ export class ManualOperationComponent implements OnInit {
     valvesObservable: any;
     pidControllerObservable: any;
     pidControllers: PidController[] = [];
+
+    modal: PidControllerModal = {
+        mode: '',
+        kp: 0,
+        ki: 0,
+        kd: 0,
+        output: 0,
+        setPoint: 0,
+        name: ''
+    }
 
     constructor(private pinService: PinService,
         private socketService: SocketService,
@@ -36,6 +49,21 @@ export class ManualOperationComponent implements OnInit {
         this.motors.push(new Motor('WORT_PUMP', 'WORT_PUMP'));
     }
 
+    openPidControllerModal(pidController: PidController) {
+        let config = pidController.config;
+        this.modal = {
+            mode: config.mode,
+            kp: config.kp,
+            ki: config.ki,
+            kd: config.kd,
+            output: config.output,
+            setPoint: config.setPoint,
+            name: pidController.name
+        }
+
+        this.pidControllerModal.show();
+    }
+
     ngOnInit() {
         this.valvesObservable = this.socketService.getValves().subscribe((data: Valve[]) => {
             this.valves = data.sort();
@@ -43,9 +71,6 @@ export class ManualOperationComponent implements OnInit {
 
         this.pidControllerService.getStatus().then(data => {
             this.pidControllers = data.json() as PidController[];
-            for (let pidController of this.pidControllers) {
-                pidController.newConfig = this.copyConfig(pidController.config);
-            }
         });
 
         this.pidControllerObservable = this.socketService.getControllersData().subscribe((pidControllersData: PidControllerData[]) => {
@@ -82,18 +107,21 @@ export class ManualOperationComponent implements OnInit {
         }
     }
 
-    togglePidCtrlMode(pidController: PidController) {
-        let newMode = pidController.newConfig.mode.toLowerCase() === 'auto' ? 'manual' : 'auto';
-        pidController.newConfig.mode = newMode;
+    setPidController(modal: PidControllerModal) {
+        let config: PidControllerConfig = {
+            mode: modal.mode,
+            kp: modal.kp,
+            ki: modal.ki,
+            kd: modal.kd,
+            output: modal.output,
+            setPoint: modal.setPoint
+        }
 
-        this.pidControllerService.setConfig(pidController.name, pidController.newConfig).then(data => {
-            pidController.config = this.copyConfig(pidController.newConfig);
-        });
-    }
+        this.pidControllerService.setConfig(modal.name, config).then(data => {
+            let controllers: PidController[] = this.pidControllers.filter(controller => { return controller.name === modal.name });
+            controllers[0].config = config; // should allways return 1 controller          
 
-    setPidController(pidController: PidController) {
-        this.pidControllerService.setConfig(pidController.name, pidController.newConfig).then(data => {
-            pidController.config = this.copyConfig(pidController.newConfig);
+            this.pidControllerModal.hide();  
         });
     }
 
