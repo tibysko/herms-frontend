@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 
+import { NotificationsService } from 'angular2-notifications';
+
 declare var $:any;
 
 import { NgForm } from '@angular/forms';
@@ -53,7 +55,8 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
     constructor(private pinService: PinService,
         private socketService: SocketService,
         private pidControllerService: PidControllerService,
-        private valveService: ValveService) {
+        private valveService: ValveService,
+        private notificationsService: NotificationsService) {
 
         this.motors.push(new Motor('HW_PUMP', 'HW_PUMP'));
         this.motors.push(new Motor('WORT_PUMP', 'WORT_PUMP'));
@@ -142,6 +145,7 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
             controllers[0].config = config; // should allways return 1 controller          
 
             this.pidControllerModal.hide();
+            this.notificationsService.success('Pid controller','Successfully updated config for ' + modal.longName);
         });
     }
 

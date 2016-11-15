@@ -17,6 +17,7 @@
         <li routerLinkActive="active"><a [routerLink]="['/production']" href="#">Production</a></li>
         <li routerLinkActive="active"><a [routerLink]="['/phases']" href="#">Phases</a></li>
         <li routerLinkActive="active"><a [routerLink]="['/manual-operation']" href="#">Manual operation</a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/logs']" href="#">Logs</a></li>
            <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Recipe <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -32,5 +33,6 @@
   </div><!-- /.container -->
 </nav>
 <div class="container">
+  <simple-notifications [options]="options"></simple-notifications>
   <router-outlet></router-outlet>
 </div>

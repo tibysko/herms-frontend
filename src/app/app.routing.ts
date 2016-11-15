@@ -1,10 +1,11 @@
-import { ModuleWithProviders }  from '@angular/core';
+import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ManualOperationComponent} from './manual-operation/manual-operation.component';
-import {OverviewComponent} from './overview/overview.component';
-import {PhasesComponent} from './phases/phases.component';
-import {ProductionComponent} from './production/production.component';
-import {AlarmComponent} from './alarm/alarm.component';
+import { ManualOperationComponent } from './manual-operation/manual-operation.component';
+import { OverviewComponent } from './overview/overview.component';
+import { PhasesComponent } from './phases/phases.component';
+import { ProductionComponent } from './production/production.component';
+import { AlarmComponent } from './alarm/alarm.component';
+import { LogsComponent } from './logs/logs.component';
 
 const appRoutes: Routes = [
     {
@@ -26,6 +27,10 @@ const appRoutes: Routes = [
     {
         path: 'production',
         component: ProductionComponent
+    },
+    {
+        path: 'logs',
+        component: LogsComponent
     },
     {
         path: '',

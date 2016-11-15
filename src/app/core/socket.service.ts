@@ -5,13 +5,13 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 
 import { Pin } from '../model/pin.interface';
-import { environment } from '../../environments/environment';
+import {AppSettings} from './app-settings';
 import { Valve } from '../model/valve.interface';
 import { PidControllerData } from '../manual-operation/pid-controller-data.interface';
 
 @Injectable()
 export class SocketService {
-    private url = environment.websocketUrl;
+    private url = AppSettings.WEBSOCKET_ENDPOINT;
     private socket: any;
     private pinsObservable: Observable<Pin[]>;
     private valvesObservable: Observable<Valve[]>;

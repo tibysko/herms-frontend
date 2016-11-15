@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Pin } from '../model/pin.interface';
-import { environment } from '../../environments/environment';
+import {AppSettings} from './app-settings';
 
 export class PinValue {
     public static HIGH: number =  1;
@@ -12,7 +12,7 @@ export class PinValue {
 
 @Injectable()
 export class PinService {
-    private apiUrl = environment.apiUrl + '/pins';
+    private apiUrl = AppSettings.API_ENDPOINT + '/pins';
     private headers: Headers;
 
     constructor(private http: Http) {
