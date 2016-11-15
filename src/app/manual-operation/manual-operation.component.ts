@@ -1,5 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+
+declare var $:any;
+
 import { NgForm } from '@angular/forms';
 
 import { Pin } from '../model/pin.interface';
@@ -19,7 +22,7 @@ import { SocketService } from '../core/socket.service';
     templateUrl: 'manual-operation.component.html'
 })
 
-export class ManualOperationComponent implements OnInit {
+export class ManualOperationComponent implements OnInit, AfterViewInit {
     @ViewChild('childModal') public pidControllerModal: ModalDirective;
 
     motors: Motor[] = [];
@@ -29,6 +32,12 @@ export class ManualOperationComponent implements OnInit {
     valvesObservable: any;
     pidControllerObservable: any;
     pidControllers: PidController[] = [];
+    someValue: number = 5;
+
+    public modeToggles = [
+        { value: 'auto', display: 'Auto' },
+        { value: 'manual', display: 'Manual' },
+    ];
 
     modal: PidControllerModal = {
         mode: '',
@@ -37,7 +46,8 @@ export class ManualOperationComponent implements OnInit {
         kd: 0,
         output: 0,
         setPoint: 0,
-        name: ''
+        name: '',
+        longName: ''
     }
 
     constructor(private pinService: PinService,
@@ -49,6 +59,15 @@ export class ManualOperationComponent implements OnInit {
         this.motors.push(new Motor('WORT_PUMP', 'WORT_PUMP'));
     }
 
+    ngAfterViewInit() {
+        // Init material js
+        $.material.init();
+    }
+
+    onChange(value: any) {
+        console.log('Value changed to', value);
+    }
+
     openPidControllerModal(pidController: PidController) {
         let config = pidController.config;
         this.modal = {
@@ -56,9 +75,10 @@ export class ManualOperationComponent implements OnInit {
             kp: config.kp,
             ki: config.ki,
             kd: config.kd,
+            name: pidController.name,
             output: config.output,
             setPoint: config.setPoint,
-            name: pidController.name
+            longName: pidController.longName
         }
 
         this.pidControllerModal.show();
@@ -121,7 +141,7 @@ export class ManualOperationComponent implements OnInit {
             let controllers: PidController[] = this.pidControllers.filter(controller => { return controller.name === modal.name });
             controllers[0].config = config; // should allways return 1 controller          
 
-            this.pidControllerModal.hide();  
+            this.pidControllerModal.hide();
         });
     }
 
