@@ -1,134 +1,146 @@
-<h1>Valves</h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Auto</th>
-      <th>Close</th>
-      <th>Open</th>
-      <!-- th>Closed</th>
-            <th>Opened</th-->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let valve of valves" [ngClass]="getRowClass(valve)">
-      <th>{{valve.name}}</th>
-      <td><button class="btn btn-default" disabled>Auto</button></td>
-      <td><button class="btn btn-default" (mousedown)="startClosingValve(valve)" (mouseup)="stopClosingValve(valve)">Close</button></td>
-      <td><button class="btn btn-default" (mousedown)="startOpeningValve(valve)" (mouseup)="stopOpeningValve(valve)">Open</button></td>
-      <!-- td class="danger">{{valve.getStatus()}}</td>
-            <td class="success"></td-->
-    </tr>
-  </tbody>
-</table>
-<br />
-<h1>Controllers</h1>
-<div *ngFor="let pidController of pidControllers" class="well well-lg">
-  <h3>{{pidController.name}} 
-    <button class="btn btn-lg pull-right" type="button" (click)="openPidControllerModal(pidController)" style="background:transparent">
-      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-    </button>
-  </h3>  
-  <table class="table table-striped">
+<div class="jumbotron">
+  <h3>Valves</h3>
+  <table class="table table-condensed">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Value</th>
+        <th>#</th>
+        <th>Auto</th>
+        <th>Close</th>
+        <th>Open</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><label>Temp:</label></td>
-        <td><span>{{ pidController.data.temperature | number:'2.1-2' }} C</span></td>
-      </tr>
-      <tr>
-        <td><label>Set Point:</label></td>
-        <td><span>{{pidController.config.setPoint}}</span></td>
-      </tr>
-      <tr>
-        <td><label>Output:</label></td>
-        <td><span>{{pidController.data.output}}</span></td>
-      </tr>
-      <tr>
-        <td><label>Kp:</label></td>
-        <td><span>{{pidController.config.kp}}</span></td>
-      </tr>
-      <tr>
-        <td><label>Ki:</label></td>
-        <td><span>{{pidController.config.ki}}</span></td>
-      </tr>
-      <tr>
-        <td><label>Kd:</label></td>
-        <td><span>{{pidController.config.kd}}</span></td>
+      <tr *ngFor="let valve of valves">
+        <td>{{valve.name}}</td>
+        <td><button class="btn btn-sm btn-raised" disabled>Auto</button></td>
+        <td><button class="btn btn-sm btn-raised" (mousedown)="startClosingValve(valve)" (mouseup)="stopClosingValve(valve)">Close</button></td>
+        <td><button class="btn btn-sm btn-raised" (mousedown)="startOpeningValve(valve)" (mouseup)="stopOpeningValve(valve)">Open</button></td>
       </tr>
     </tbody>
   </table>
 </div>
-<br />
-<h1>Pumps</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Auto</th>
-      <th>Stop</th>
-      <th>Start</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let motor of motors">
-      <td>{{motor.getName()}}</td>
-      <td><button class="btn btn-default" disabled>Auto</button></td>
-      <td><button class="btn btn-default" (click)="stopMotor(motor)">Stop</button></td>
-      <td><button class="btn btn-default" (click)="startMotor(motor)">Start</button></td>
-    </tr>
-  </tbody>
-</table>
-
+<div class="row">
+  <div *ngFor="let pidController of pidControllers" class="col-sm-6">
+    <div class="jumbotron">
+      <h3>{{pidController.longName}}
+        <button class="btn btn-lg pull-right" type="button" (click)="openPidControllerModal(pidController)" style="background:transparent">
+      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+    </button>
+      </h3>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Temp:</td>
+            <td>{{ pidController.data.temperature | number:'2.1-2' }} C</td>
+          </tr>
+          <tr>
+            <td>Set Point:</td>
+            <td>{{pidController.config.setPoint}}</td>
+          </tr>
+          <tr>
+            <td>Output:</td>
+            <td>{{pidController.data.output}}</td>
+          </tr>
+          <tr>
+            <td>Kp:</td>
+            <td>{{pidController.config.kp}}</td>
+          </tr>
+          <tr>
+            <td>Ki:</td>
+            <td>{{pidController.config.ki}}</td>
+          </tr>
+          <tr>
+            <td>Kd:</td>
+            <td>{{pidController.config.kd}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="jumbotron">
+  <h3>Pumps</h3>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Auto</th>
+        <th>Stop</th>
+        <th>Start</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let motor of motors">
+        <td>{{motor.getName()}}</td>
+        <td><button class="btn btn-sm btn-raised" disabled>Auto</button></td>
+        <td><button class="btn btn-sm btn-raised" (click)="stopMotor(motor)">Stop</button></td>
+        <td><button class="btn btn-sm btn-raised" (click)="startMotor(motor)">Start</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <!-- PidController modal -->
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form #f="ngForm" novalidate>
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">{{modal.name}}</h4>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="operation">Operation</label>
-            <select class="form-control" [(ngModel)]="modal.mode" name="operation" id="operation">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{modal.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" class="form-horizontal" novalidate>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="operation" class="col-sm-2 control-label">Operation</label>
+            <div class="col-sm-10">
+              <select class="form-control" [(ngModel)]="modal.mode" name="operation" id="operation">
               <option>Auto</option>
               <option>Manual</option>
             </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="setPoint">Set Point</label>
-            <input type="number" class="form-control" id="setPoint" name="setPoint" placeholder="Set Point" [(ngModel)]="modal.setPoint"
-              required>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="setPoint" class="col-sm-2 control-label">Set Point</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="setPoint" name="setPoint" placeholder="Set Point" [(ngModel)]="modal.setPoint"
+                required>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="output">Output</label>
-            <input type="number" class="form-control" id="output" name="output" placeholder="Output" [(ngModel)]="modal.output" required>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="output" class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="output" name="output" placeholder="Output" [(ngModel)]="modal.output" required>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="Kp">Kp</label>
-            <input type="number" class="form-control" id="kp" name="kp" placeholder="kp" [(ngModel)]="modal.kp" required>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="Kp" class="col-sm-2 control-label">Kp</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="kp" name="kp" placeholder="kp" [(ngModel)]="modal.kp" required>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="Ki">Ki</label>
-            <input type="number" class="form-control" id="ki" name="ki" placeholder="Ki" [(ngModel)]="modal.ki" required>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="Ki" class="col-sm-2 control-label">Ki</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="ki" name="ki" placeholder="Ki" [(ngModel)]="modal.ki" required>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="Kd">Kd</label>
-            <input type="number" class="form-control" id="kd" name="kd" placeholder="kd" [(ngModel)]="modal.kd" required>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="Kd" class="col-sm-2 control-label">Kd</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="kd" name="kd" placeholder="kd" [(ngModel)]="modal.kd" required>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-default" type="button" data-dismiss="modal" (click)="pidControllerModal.hide()">Cancel</button>
-          <button class="btn btn-primary" type="button" (click)="setPidController(modal)">Save changes</button>
-        </div>
-      </form>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" type="button" data-dismiss="modal" (click)="pidControllerModal.hide()">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="setPidController(modal)">Save changes</button>
+      </div>
     </div>
   </div>
 </div>
