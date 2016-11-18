@@ -1,16 +1,24 @@
 .navbar-brand {
-    padding: 0;
-
-    img{
-        height: 50px;
-    }    
+  padding: 0;
+  img {
+    height: 50px;
+  }
 }
 
 body {
-    padding-top: 70px;
+  padding-top: 70px;
 }
 
 // We prefix our css classes with he-
 .he-form-group-lg {
-    margin-top: 0px !important; 
+  margin-top: 0px !important;
+}
+
+.he-form-control-slider {
+  background-image: none !important;
+}
+
+.test-inline {
+  display: inline-block;
+  vertical-align: top;
 }

@@ -1,6 +1,6 @@
 {
   "project": {
-    "version": "1.0.0-beta.18",
+    "version": "1.0.0-beta.19-3",
     "name": "herms-frontend-angular-cli"
   },
   "apps": [
@@ -24,7 +24,10 @@
         "../node_modules/bootstrap-material-design/dist/css/ripples.min.css"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js"
+        "../node_modules/jquery/dist/jquery.min.js",        
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/bootstrap-material-design/dist/js/material.min.js"
+
       ],
       "environments": {
         "source": "environments/environment.ts",
@@ -46,7 +49,7 @@
     }
   },
   "defaults": {
-    "styleExt": "scss",
+    "styleExt": "css",
     "prefixInterfaces": false,
     "inline": {
       "style": false,

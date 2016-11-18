@@ -1,5 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+
+import { NotificationsService } from 'angular2-notifications';
+
+declare var $:any;
+
 import { NgForm } from '@angular/forms';
 
 import { Pin } from '../model/pin.interface';
@@ -19,7 +24,7 @@ import { SocketService } from '../core/socket.service';
     templateUrl: 'manual-operation.component.html'
 })
 
-export class ManualOperationComponent implements OnInit {
+export class ManualOperationComponent implements OnInit, AfterViewInit {
     @ViewChild('childModal') public pidControllerModal: ModalDirective;
 
     motors: Motor[] = [];
@@ -30,6 +35,11 @@ export class ManualOperationComponent implements OnInit {
     pidControllerObservable: any;
     pidControllers: PidController[] = [];
 
+    modeToggles = [
+        { value: 'auto', display: 'Auto' },
+        { value: 'manual', display: 'Manual' },
+    ];
+
     modal: PidControllerModal = {
         mode: '',
         kp: 0,
@@ -37,16 +47,23 @@ export class ManualOperationComponent implements OnInit {
         kd: 0,
         output: 0,
         setPoint: 0,
-        name: ''
+        name: '',
+        longName: ''
     }
 
     constructor(private pinService: PinService,
         private socketService: SocketService,
         private pidControllerService: PidControllerService,
-        private valveService: ValveService) {
+        private valveService: ValveService,
+        private notificationsService: NotificationsService) {
 
         this.motors.push(new Motor('HW_PUMP', 'HW_PUMP'));
         this.motors.push(new Motor('WORT_PUMP', 'WORT_PUMP'));
+    }
+
+    ngAfterViewInit() {
+        // Init material js
+        $.material.init();
     }
 
     openPidControllerModal(pidController: PidController) {
@@ -56,9 +73,10 @@ export class ManualOperationComponent implements OnInit {
             kp: config.kp,
             ki: config.ki,
             kd: config.kd,
+            name: pidController.name,
             output: config.output,
             setPoint: config.setPoint,
-            name: pidController.name
+            longName: pidController.longName
         }
 
         this.pidControllerModal.show();
@@ -96,17 +114,6 @@ export class ManualOperationComponent implements OnInit {
             return "";
     }
 
-    private copyConfig(config: PidControllerConfig): PidControllerConfig {
-        return {
-            mode: config.mode,
-            kp: config.kp,
-            ki: config.ki,
-            kd: config.kd,
-            output: config.output,
-            setPoint: config.setPoint
-        }
-    }
-
     setPidController(modal: PidControllerModal) {
         let config: PidControllerConfig = {
             mode: modal.mode,
@@ -121,7 +128,8 @@ export class ManualOperationComponent implements OnInit {
             let controllers: PidController[] = this.pidControllers.filter(controller => { return controller.name === modal.name });
             controllers[0].config = config; // should allways return 1 controller          
 
-            this.pidControllerModal.hide();  
+            this.pidControllerModal.hide();
+            this.notificationsService.success('Pid controller','Successfully updated config for ' + modal.longName);
         });
     }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { environment } from '../../environments/environment';
+import {AppSettings} from '../core/app-settings';
 import { Valve } from '../model/valve.interface';
 
 export enum State {
@@ -14,9 +14,8 @@ export enum State {
 }
 
 @Injectable()
-export class ValveService {
-    private url = environment.websocketUrl;
-    private apiUrl = environment.apiUrl + '/valves';
+export class ValveService {    
+    private apiUrl = AppSettings.API_ENDPOINT + '/valves';
 
     constructor(private http: Http) {}
 
