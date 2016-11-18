@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 
 import { Pin } from '../model/pin.interface';
-import {AppSettings} from './app-settings';
+import { AppSettings } from './app-settings';
 import { Valve } from '../model/valve.interface';
 import { PidControllerData } from '../manual-operation/pid-controller-data.interface';
 
@@ -16,6 +16,7 @@ export class SocketService {
     private pinsObservable: Observable<Pin[]>;
     private valvesObservable: Observable<Valve[]>;
     private pidControllersDataObservable: Observable<PidControllerData[]>;
+    private errorObservable: Observable<string>;
 
     constructor() {
         this.socket = io(this.url);
@@ -37,6 +38,13 @@ export class SocketService {
                 observer.next(pidControllers);
             });
         });
+
+        this.errorObservable = new Observable(observer => {
+            this.socket.on('error', (error: string) => {
+                console.log('--- ' + error);
+                observer.next(error);
+            });
+        });
     }
 
     getPins(): Observable<Pin[]> {
@@ -49,5 +57,9 @@ export class SocketService {
 
     getControllersData(): Observable<PidControllerData[]> {
         return this.pidControllersDataObservable;
+    }
+
+    getError(): Observable<string> {
+        return this.errorObservable;
     }
 }
