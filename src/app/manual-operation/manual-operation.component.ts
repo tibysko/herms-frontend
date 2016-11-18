@@ -34,9 +34,8 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
     valvesObservable: any;
     pidControllerObservable: any;
     pidControllers: PidController[] = [];
-    someValue: number = 5;
 
-    public modeToggles = [
+    modeToggles = [
         { value: 'auto', display: 'Auto' },
         { value: 'manual', display: 'Manual' },
     ];
@@ -65,10 +64,6 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         // Init material js
         $.material.init();
-    }
-
-    onChange(value: any) {
-        console.log('Value changed to', value);
     }
 
     openPidControllerModal(pidController: PidController) {
@@ -117,17 +112,6 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
             return "success";
         else
             return "";
-    }
-
-    private copyConfig(config: PidControllerConfig): PidControllerConfig {
-        return {
-            mode: config.mode,
-            kp: config.kp,
-            ki: config.ki,
-            kd: config.kd,
-            output: config.output,
-            setPoint: config.setPoint
-        }
     }
 
     setPidController(modal: PidControllerModal) {

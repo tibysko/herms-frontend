@@ -21,8 +21,7 @@
         "styles.scss",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.css",
-        "../node_modules/bootstrap-material-design/dist/css/ripples.min.css",
-        "../node_modules/nouislider/distribute/nouislider.min.css"
+        "../node_modules/bootstrap-material-design/dist/css/ripples.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",        

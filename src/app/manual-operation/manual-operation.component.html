@@ -102,49 +102,44 @@
       </div>
       <div class="modal-body">
         <form #f="ngForm" class="form-horizontal" novalidate>
-          <div class="form-group form-group-lg he-form-group-lg is-empty label-static ">
-            <label for="i2" class="control-label" style="text-transform: capitalize;">Mode <b>{{modal.mode}}</b></label>
-            <div class="form-control he-form-control-slider">
-              <div class="togglebutton">
-                <input type="hidden" name="toggle" [(ngModel)]="modal.mode">
-                <label>
-                &nbsp; 
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="i2" class="col-sm-2 control-label" style="text-transform: capitalize;">Mode</label>
+            <div class="col-sm-10">
+              <div class="form-control">
+                <div class="togglebutton">
+                  <input type="hidden" name="toggle" [(ngModel)]="modal.mode">
+                  <label> 
                 <input type="checkbox" [checked]="modal.mode.toLowerCase() === modeToggles[0].value.toLowerCase()" 
                 (change)="$event.target.checked ? (modal.mode =  modeToggles[0].value) : (modal.mode = modeToggles[1].value)">
               </label>
+              {{modal.mode}}
+                </div>
               </div>
             </div>
           </div>
-          <div class="form-group form-group-lg he-form-group-lg is-empty label-static ">
-            <label for="i2" class="control-label">Setpoint: <b>{{modal.setPoint}}</b></label>
-            <div class="form-control  he-form-control-slider">
-              <nouislider [min]="0" [max]="100" [step]="1" [(ngModel)]="modal.setPoint" name="setPoint" (ngModelChange)="onChange($event)"
-                class="slider shor slider-material-orange noUi-target noUi-ltr noUi-horizontal noUi-connect"></nouislider>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="setPoint" class="col-sm-2 control-label">Set Point</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="setPoint" name="setPoint" placeholder="Set Point" [(ngModel)]="modal.setPoint"
+                required>
             </div>
           </div>
-          <div class="form-group form-group-lg he-form-group-lg is-empty label-static ">
-            <label for="i2" class="control-label">Output: <b>{{modal.output}}</b></label>
-            <div class="form-control he-form-control-slider">
-              <nouislider [min]="0" [max]="255" [step]="1" [(ngModel)]="modal.output" name="output" (ngModelChange)="onChange($event)"
-                class="slider shor slider-material-orange noUi-target noUi-ltr noUi-horizontal noUi-connect"></nouislider>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="output" class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="output" name="output" placeholder="Output" [(ngModel)]="modal.output" required>
             </div>
           </div>
-          <div class="form-group form-group-lg he-form-group-lg is-empty label-static">
-            <label for="i2" class="control-label">Kp: <b>{{modal.kp}}</b></label>
-            <div class="form-control he-form-control-slider">
-              <nouislider [min]="0" [max]="255" [step]="1" [(ngModel)]="modal.kp" name="kp" (ngModelChange)="onChange($event)" class="slider shor slider-material-orange noUi-target noUi-ltr noUi-horizontal noUi-connect"></nouislider>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="Kp" class="col-sm-2 control-label">Kp</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="kp" name="kp" placeholder="kp" [(ngModel)]="modal.kp" required>
             </div>
           </div>
-          <div class="form-group form-group-lg he-form-group-lg is-empty label-static">
-            <label for="i2" class="control-label">Ki: <b>{{modal.ki}}</b></label>
-            <div class="form-control he-form-control-slider">
-              <nouislider [min]="0" [max]="255" [step]="1" [(ngModel)]="modal.ki" name="ki" (ngModelChange)="onChange($event)" class="slider shor slider-material-orange noUi-target noUi-ltr noUi-horizontal noUi-connect"></nouislider>
-            </div>
-          </div>
-          <div class="form-group form-group-lg he-form-group-lg is-empty label-static">
-            <label for="i2" class="control-label">Kd <b>{{modal.kd}}</b></label>
-            <div class="form-control he-form-control-slider">
-              <nouislider [min]="0" [max]="255" [step]="1" [(ngModel)]="modal.kd" name="kd" (ngModelChange)="onChange($event)" class="slider shor slider-material-orange noUi-target noUi-ltr noUi-horizontal noUi-connect"></nouislider>
+          <div class="form-group form-group-lg he-form-group-lg is-empty">
+            <label for="Ki" class="col-sm-2 control-label">Ki</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="ki" name="ki" placeholder="Ki" [(ngModel)]="modal.ki" required>
             </div>
           </div>
         </form>
