@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 
 import { SocketService } from '../core/socket.service';
-import { Valve } from '../model/valve.interface';
+import { Valve, ValveState } from '../model/valve.interface';
 
 @Component({
     selector: 'overview',
@@ -33,9 +33,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     private getColor(valve: Valve) {
         if (valve) {
-            if (valve.status === 'OPENED') {
+            let state = ValveState[valve.state];
+
+            if (state === ValveState.OPENED) {
                 return OverviewComponent.COLOR_GREEN;
-            } else if (valve.status === 'CLOSED') {
+            } else if (state === ValveState.CLOSED) {
                 return OverviewComponent.COLOR_RED;
             } else {
                 return OverviewComponent.COLOR_BLACK;
@@ -44,11 +46,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
         this.connection = this.socketService.getValves().subscribe((valves: Valve[]) => {
             for (let valve of valves) {
-                this[valve.name] = OverviewComponent.COLOR_GREEN;// this.getColor(valve);
-
+                this[valve.name] = this.getColor(valve);
             }
         });
     }

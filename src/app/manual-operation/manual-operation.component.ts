@@ -1,22 +1,19 @@
+declare var $: any;
+
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
-
 import { NotificationsService } from 'angular2-notifications';
 
-declare var $:any;
-
-import { NgForm } from '@angular/forms';
-
-import { Pin } from '../model/pin.interface';
-import { Valve } from '../model/valve.interface';
+import { Valve, ValveState } from '../model/valve.interface';
 import { Motor } from '../model/motor';
+import { Pin } from '../model/pin.interface';
 import { PinService, PinValue } from '../core/pin.service';
 import { PidController } from './pid-controller.interface';
 import { PidControllerConfig } from './pid-controller-config.interface';
 import { PidControllerData } from './pid-controller-data.interface';
 import { PidControllerModal } from './pid-controller-modal';
 import { PidControllerService } from './pid-controller.service';
-import { ValveService, State } from './valve.service';
+import { ValveService } from './valve.service';
 import { SocketService } from '../core/socket.service';
 
 @Component({
@@ -28,8 +25,6 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
     @ViewChild('childModal') public pidControllerModal: ModalDirective;
 
     motors: Motor[] = [];
-    pins: Pin[] = [];
-    pinsValves: any = [];
     valves: Valve[] = [];
     valvesObservable: any;
     pidControllerObservable: any;
@@ -104,13 +99,13 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
     }
 
     getRowClass(valve: Valve) {
-        let state = State[valve.status];
-
-        if (valve.status === State[State.CLOSED])
+        let state = ValveState[valve.state];
+        
+        if (state === ValveState.CLOSED)
             return "danger";
-        else if (valve.status === State[State.OPENED])
+        else if (state === ValveState.OPENED) {
             return "success";
-        else
+        } else
             return "";
     }
 
@@ -129,24 +124,24 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
             controllers[0].config = config; // should allways return 1 controller          
 
             this.pidControllerModal.hide();
-            this.notificationsService.success('Pid controller','Successfully updated config for ' + modal.longName);
+            this.notificationsService.success('Pid controller', 'Successfully updated config for ' + modal.longName);
         });
     }
 
     startClosingValve(valve: Valve) {
-        this.valveService.setState(valve.name, State.START_CLOSE);
+        this.valveService.setState(valve.name, ValveState.START_CLOSE);
     }
 
     stopClosingValve(valve) {
-        this.valveService.setState(valve.name, State.STOP_CLOSE);
+        this.valveService.setState(valve.name, ValveState.STOP_CLOSE);
     }
 
     startOpeningValve(valve) {
-        this.valveService.setState(valve.name, State.START_OPEN);
+        this.valveService.setState(valve.name, ValveState.START_OPEN);
     }
 
     stopOpeningValve(valve) {
-        this.valveService.setState(valve.name, State.STOP_OPEN);
+        this.valveService.setState(valve.name, ValveState.STOP_OPEN);
     }
 
     startMotor(motor: Motor) {

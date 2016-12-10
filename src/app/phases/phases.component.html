@@ -1,7 +1,74 @@
-<h1>Phases</h1>
-<button class="btn">Mash</button><br>
-<button class="btn">Sparge</button><br>
-<button class="btn">Boil</button><br>
-<button class="btn">Cooling</button><br>
-<button class="btn">Cleaning (MLT)</button><br>
-<button class="btn">Cleaning (KET)</button><br>
+<div class="well well-lg">
+  <h3>Phases</h3>
+  <button type="button" class="btn btn-sm btn-raised" (click)="openCreatePhase()">Create</button>
+  <div class="table-responsive">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th width="20%">Name</th>
+          <th width="10%">Edit</th>
+          <th width="10%">Activate</th>
+          <th width="10%">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let phase of phases" [ngClass]="phase.activated ? 'success' : ''">
+          <td>{{phase.name}}</td>
+          <td><button type="button" class="btn btn-sm btn-raised" (click)="openEditPhase(phase)">Edit</button></td>
+          <td><button type="button" class="btn btn-sm btn-raised" (click)="activatePhase(phase)">Activate</button></td>
+          <td><button type="button" class="btn btn-sm btn-raised" (click)="deletePhase(phase)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- phase edit/create modal -->
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-dismiss="modal" (click)="phaseModal.hide()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create new</h4>
+      </div>
+      <div class="modal-body">
+        <form #phaseForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required [(ngModel)]="modalModel.name" name="name" #name="ngModel">
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger"> Name is required</div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>State</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let valve of modalModel.valves">
+                  <td>{{ valve.name }}</td>
+                  <td>
+                    <div class="togglebutton">
+                      <input type="hidden" name="toggle" [(ngModel)]="valve.state">
+                      <label> 
+                          <input type="checkbox" [checked]="valve.state === phaseToggles[0].value" 
+                              (change)="$event.target.checked ? (valve.state =  phaseToggles[0].value) : (valve.state = phaseToggles[1].value)">
+                      </label>
+                      <span style="text-transform: capitalize;">{{ valve.state }}</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" type="button" data-dismiss="modal" (click)="phaseModal.hide()">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="savePhase(modalModel)" [disabled]="!phaseForm.form.valid">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END edit/create modal -->
