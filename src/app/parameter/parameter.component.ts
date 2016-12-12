@@ -8,8 +8,7 @@ import { Parameter } from './parameter.interface';
 
 @Component({
   selector: 'app-parameter',
-  templateUrl: './parameter.component.html',
-  styleUrls: ['./parameter.component.css']
+  templateUrl: './parameter.component.html'
 })
 export class ParameterComponent implements OnInit {
   @ViewChild('childModal') public parameterDialog: ModalDirective;
