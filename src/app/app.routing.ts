@@ -1,6 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ManualOperationComponent } from './manual-operation/manual-operation.component';
+import { ParameterComponent } from './parameter/parameter.component'
 import { OverviewComponent } from './overview/overview.component';
 import { PhasesComponent } from './phases/phases.component';
 import { ProductionComponent } from './production/production.component';
@@ -31,6 +32,10 @@ const appRoutes: Routes = [
     {
         path: 'logs',
         component: LogsComponent
+    },
+    {
+        path: 'parameters',
+        component: ParameterComponent
     },
     {
         path: '',

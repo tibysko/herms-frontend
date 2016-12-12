@@ -11,8 +11,10 @@ import { LogsModule } from './logs/logs.module';
 import { CoreModule } from './core/core.module';
 import { ManualOperationModule } from './manual-operation/manual-operation.module';
 import { OverviewModule } from './overview/overview.module';
+import { ParameterModule } from './parameter/parameter.module';
 import { PhasesModule } from './phases/phases.module';
 import { ProductionModule } from './production/production.module';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { ProductionModule } from './production/production.module';
     CoreModule,
     ManualOperationModule,
     OverviewModule,
+    ParameterModule,
     PhasesModule,
     ProductionModule,
     SimpleNotificationsModule,

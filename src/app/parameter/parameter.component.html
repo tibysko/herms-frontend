@@ -1,85 +1,50 @@
-<style>
-	hr {
-		display: block;
-		margin-top: 0.5em;
-		margin-bottom: 0.5em;
-		margin-left: auto;
-		margin-right: auto;
-		border-style: inset;
-		border-width: 2px;
-	}
-</style>
-
-<h2>Parameter</h2>
-<hr>
-<br />
-<h4><b>T1: HLT</b></h4>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th style="width: 10%" </th>
-				<th style="width: 90%" </th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><label>Offset: </label></td>
-			<td><input [(ngModel)]="config.kp" type="number"></td>
-		</tr>
-		<tr>
-			<td><label>Scaling: </label></td>
-			<td><input [(ngModel)]="config.kp" type="number"></td>
-		</tr>
-		<tr>
-			<td><button class="btn btn-default" (click)="setPidController()">Set</button></td>
-		</tr>
-	</tbody>
-</table>
-<hr>
-<br />
-<h4><b>T2: MASH</b></h4>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th style="width: 10%" </th>
-				<th style="width: 90%" </th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><label>Offset: </label></td>
-			<td><input [(ngModel)]="config.kp" type="number"></td>
-		</tr>
-		<tr>
-			<td><label>Scaling: </label></td>
-			<td><input [(ngModel)]="config.kp" type="number"></td>
-		</tr>
-		<tr>
-			<td><button class="btn btn-default" (click)="setPidController()">Set</button></td>
-		</tr>
-	</tbody>
-</table>
-<hr>
-<br />
-<h4><b>HE_HW_IN</b></h4>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th style="width: 10%" </th>
-				<th style="width: 90%" </th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><label>Valve Filter: </label></td>
-			<td><input [(ngModel)]="config.kp" type="number"></td>
-		</tr>
-		<tr>
-			<td><label>Valve Hysteresis: </label></td>
-			<td><input [(ngModel)]="config.kp" type="number"></td>
-		</tr>
-		<tr>
-			<td><button class="btn btn-default" (click)="setPidController()">Set</button></td>
-		</tr>
-	</tbody>
-</table>
+<div class="well well-lg">
+  <h3>Parameter</h3>
+  <div class="table-responsive">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th width="20%">Name</th>
+          <th width="20%">Value</th>
+          <th width="20%">Changed</th>
+          <th>Description</th>
+          <th width="10%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let parameter of parameters | values:'name'">
+          <td>{{parameter.name}}</td>
+          <td>{{parameter.value}}</td>
+          <td>{{parameter.changed | date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+          <td>{{parameter.description}}</td>
+          <td><span class="glyphicon glyphicon-pencil" style="cursor: pointer;" aria-hidden="true" (click)="editParameter(parameter.name, parameter.value)"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- parameter edit/create modal -->
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-dismiss="modal" (click)="parameterDialog.hide()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit parameter</h4>
+      </div>
+      <div class="modal-body">
+        <form #parameterForm="ngForm">
+          <div class="form-group form-group-lg">
+            <label for="parameter" class="control-label">{{ modelParameter }}</label>
+            <input type="text" required class="form-control" id="parameter" name="parameter" [(ngModel)]="modelValue" placeholder="Value">
+            <span class="help-block">Value is required</span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" type="button" data-dismiss="modal" (click)="parameterDialog.hide()">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="saveParameter(modelParameter, modelValue)" [disabled]="!parameterForm.form.valid">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END edit/create modal -->
