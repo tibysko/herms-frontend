@@ -43,7 +43,7 @@ module.exports = {
         host: "192.168.99.100",
         port: "22022"
       }],
-      ref: "origin/master",
+      ref: "origin/test",
       repo: "https://github.com/tibysko/herms-frontend.git",
       path: "/home/node/development",
       "post-deploy": "npm install && pm2 startOrRestart ecosystem.config.js --env dev",
