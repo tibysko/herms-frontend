@@ -8,7 +8,7 @@ module.exports = {
     // First application
     {
       name: "aoo",
-      script: "server.js",
+      script: "node_modules/.bin/ng serve",
       env: {
         COMMON_VARIABLE: "true"
       },
