@@ -50,7 +50,7 @@ module.exports = {
       env: {
         NODE_ENV: "dev",
         HTTP_PORT: "15000",
-        FRONTEND_PATH = "dist"
+        FRONTEND_PATH: "dist"
       }
     }
   }
