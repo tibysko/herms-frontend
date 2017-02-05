@@ -5,11 +5,11 @@ module.exports = {
    */
   apps: [
 
-    // First application
+    // frontend application
     {
-      name: "aoo",
+      name: "frontend",
       script: "server/server.js",
-      exec_mode: 'fork',    
+      exec_mode: 'fork',
       env: {
         COMMON_VARIABLE: "true"
       },
@@ -17,12 +17,6 @@ module.exports = {
         NODE_ENV: "production"
       }
     }
-
-    // // Second application
-    // {
-    //   name      : "WEB",
-    //   script    : "web.js"
-    // }
   ],
 
   /**
@@ -31,26 +25,18 @@ module.exports = {
    */
   deploy: {
     production: {
-      user: "node",
-      host: "212.83.163.1",
-      ref: "origin/master",
-      repo: "git@github.com:repo.git",
-      path: "/var/www/production",
-      "post-deploy": "npm install && pm2 startOrRestart ecosystem.json --env production"
-    },
-    dev: {
-      user: "node",
+      user: "node", // change user
       host: [{
-        host: "192.168.99.100",
-        port: "22022"
+        host: "192.168.99.100", // change ip
+        port: "22022" // change port
       }],
       ref: "origin/master",
       repo: "https://github.com/tibysko/herms-frontend.git",
-      path: "/home/node/development",
-      "post-deploy": "npm install && npm run build-prod && pm2 startOrRestart ecosystem.config.js --env dev",
+      path: "/home/pi/herms/frontend",
+      "post-deploy": "npm install && npm run build-prod && pm2 startOrRestart ecosystem.json --env production",
       env: {
-        NODE_ENV: "dev",
-        FRONTEND_PORT: "15000",
+        NODE_ENV: "production",
+        FRONTEND_PORT: "8080",
         FRONTEND_PATH: "dist"
       }
     }
