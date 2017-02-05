@@ -8,7 +8,7 @@ module.exports = {
     // First application
     {
       name: "aoo",
-      script: "npm start",
+      script: "server/server.js",
       env: {
         COMMON_VARIABLE: "true"
       },
@@ -46,10 +46,11 @@ module.exports = {
       ref: "origin/master",
       repo: "https://github.com/tibysko/herms-frontend.git",
       path: "/home/node/development",
-      "post-deploy": "npm install && pm2 startOrRestart ecosystem.config.js --env dev",
+      "post-deploy": "npm install && npm run build-prod && pm2 startOrRestart ecosystem.config.js --env dev",
       env: {
         NODE_ENV: "dev",
-        HTTP_PORT: "15000"
+        HTTP_PORT: "15000",
+        FRONTEND_PATH = "dist"
       }
     }
   }
