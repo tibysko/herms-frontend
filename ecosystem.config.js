@@ -50,7 +50,7 @@ module.exports = {
       "post-deploy": "npm install && npm run build-prod && pm2 startOrRestart ecosystem.config.js --env dev",
       env: {
         NODE_ENV: "dev",
-        HTTP_PORT: "15000",
+        FRONTEND_PORT: "15000",
         FRONTEND_PATH: "dist"
       }
     }
