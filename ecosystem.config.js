@@ -9,6 +9,7 @@ module.exports = {
     {
       name: "aoo",
       script: "server/server.js",
+      exec_mode: 'fork',    
       env: {
         COMMON_VARIABLE: "true"
       },
