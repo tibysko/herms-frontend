@@ -10,8 +10,10 @@ module.exports = {
       name: "frontend",
       script: "server/server.js",
       exec_mode: 'fork',
+      cwd: "/",
       env: {
-        COMMON_VARIABLE: "true"
+        FRONTEND_PORT: "8080",
+        FRONTEND_PATH: "../dist"
       },
       env_production: {
         NODE_ENV: "production"
@@ -25,15 +27,15 @@ module.exports = {
    */
   deploy: {
     production: {
-      user: "node", // change user
+      user: "pi", 
       host: [{
-        host: "192.168.99.100", // change ip
-        port: "22022" // change port
+        host: "192.168.1.146", // raspberry
+        port: "22" 
       }],
       ref: "origin/master",
       repo: "https://github.com/tibysko/herms-frontend.git",
       path: "/home/pi/herms/frontend",
-      "post-deploy": "npm install && npm run build-prod && pm2 startOrRestart ecosystem.json --env production",
+      "post-deploy": "npm install && npm run build-prod && pm2 startOrRestart ecosystem.config.js --env production",
       env: {
         NODE_ENV: "production",
         FRONTEND_PORT: "8080",
