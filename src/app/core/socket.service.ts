@@ -17,6 +17,7 @@ export class SocketService {
     private valvesObservable: Observable<Valve[]>;
     private pidControllersDataObservable: Observable<PidControllerData[]>;
     private errorObservable: Observable<string>;
+    private levelControllerHltObservable: Observable<any>;
 
     constructor() {
         this.socket = io(this.url);
@@ -45,6 +46,12 @@ export class SocketService {
                 observer.next(error);
             });
         });
+
+        this.levelControllerHltObservable = new Observable(observer => {
+            this.socket.on('LevelControllerHlt', (data: any) => {
+                observer.next(data);
+            });
+        });
     }
 
     getPins(): Observable<Pin[]> {
@@ -62,4 +69,9 @@ export class SocketService {
     getError(): Observable<string> {
         return this.errorObservable;
     }
+
+    getLevelControllerHltData(): Observable<any> {
+        return this.levelControllerHltObservable;
+    }
+
 }

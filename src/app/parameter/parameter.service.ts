@@ -21,6 +21,6 @@ export class ParameterService {
     let url = `${this.apiUrl}/${parameter}`;
     let body = { value: value };
     
-    return this.http.put(url, body, this.options).toPromise();
+    return this.http.put(url, body, this.options).toPromise();//post istället för put om ny för levelcontrollerhlt..
   } 
 }

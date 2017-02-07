@@ -62,6 +62,12 @@ export class ProductionComponent {
 
             this.chart.redraw();
         });
+
+        socketService.getLevelControllerHltData().subscribe((data: any) => {
+            console.log('Hejsan',data);
+        });
+
+
     }
 
     saveInstance(chartInstance) {
