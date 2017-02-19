@@ -5,6 +5,7 @@ import { ChartModule } from 'angular2-highcharts';
 @NgModule({
   declarations: [ProductionComponent],
   exports: [ProductionComponent],
-  imports: [ChartModule]
+  imports: [ChartModule.forRoot(require('highcharts'))]
+  
 })
-export class ProductionModule { }
+export class ProductionModule { }  

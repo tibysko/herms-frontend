@@ -4,8 +4,7 @@ import { PidControllerData } from '../manual-operation/pid-controller-data.inter
 
 @Component({
     selector: 'production',
-    templateUrl: 'production.component.html',
-
+    templateUrl: 'production.component.html'
 })
 
 export class ProductionComponent {
@@ -23,11 +22,7 @@ export class ProductionComponent {
                 spacingBottom: 15,
                 spacingTop: 10,
                 spacingLeft: 10,
-                spacingRight: 0,
-
-                // Explicitly tell the width and height of a chart
-                width: null,
-                height: null
+                spacingRight: 0
             },
             title: { text: '' },
             series: [
@@ -47,8 +42,7 @@ export class ProductionComponent {
             yAxis: {
                 title: {
                     text: 'Temperature'
-                },
-                min: 0
+                }
             }
 
         };

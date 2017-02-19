@@ -1,7 +1,7 @@
 declare var $: any;
 
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import { ModalDirective } from 'ng2-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 
 import { Valve, ValveState } from '../model/valve.interface';
