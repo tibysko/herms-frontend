@@ -8,14 +8,13 @@ import { PidControllerData } from '../manual-operation/pid-controller-data.inter
 })
 
 export class ProductionComponent {
-
+    
     chart: any;
-    options: any;
+    options: Object;
     redraw: boolean = false;
     shift: boolean = false;
 
     constructor(socketService: SocketService) {
-
         this.options = {
             chart: {
                 type: 'spline',

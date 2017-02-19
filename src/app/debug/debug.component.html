@@ -1,0 +1,21 @@
+<div class="jumbotron">
+  <h3>Pins</h3>
+  <div class="table-responsive">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pin of pins | values:'name'">
+          <td>{{pin.name}}</td>
+          <td>{{pin.value}}</td>
+          <td>{{pin.comments}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

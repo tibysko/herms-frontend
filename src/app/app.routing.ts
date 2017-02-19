@@ -7,6 +7,7 @@ import { PhasesComponent } from './phases/phases.component';
 import { ProductionComponent } from './production/production.component';
 import { AlarmComponent } from './alarm/alarm.component';
 import { LogsComponent } from './logs/logs.component';
+import { DebugComponent } from './debug/debug.component';
 
 const appRoutes: Routes = [
     {
@@ -36,6 +37,10 @@ const appRoutes: Routes = [
     {
         path: 'parameters',
         component: ParameterComponent
+    },
+    {
+        path: 'debug',
+        component: DebugComponent
     },
     {
         path: '',
