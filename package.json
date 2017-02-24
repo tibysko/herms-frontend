@@ -5,10 +5,12 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start": "node_modules/.bin/ng serve",
+    "build": "node_modules/.bin/ng build",
+    "build-prod": "node_modules/.bin/ng build --prod"
   },
   "private": true,
   "dependencies": {
