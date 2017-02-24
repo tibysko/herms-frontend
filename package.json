@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "start": "node_modules/.bin/ng serve",
     "build": "node_modules/.bin/ng build",
-    "build-prod": "node_modules/.bin/ng build --prod"
+    "build-prod": "node_modules/.bin/ng build"
   },
   "private": true,
   "dependencies": {
