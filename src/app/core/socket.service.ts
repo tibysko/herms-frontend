@@ -5,61 +5,72 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 
 import { Pin } from '../model/pin.interface';
+import { System } from './system.interface';
 import { AppSettings } from './app-settings';
 import { Valve } from '../model/valve.interface';
 import { PidControllerData } from '../manual-operation/pid-controller-data.interface';
 
 @Injectable()
 export class SocketService {
+    private system: Observable<{}>;
     private url = AppSettings.WEBSOCKET_ENDPOINT;
     private socket: any;
-    private pinsObservable: Observable<Pin[]>;
-    private valvesObservable: Observable<Valve[]>;
-    private pidControllersDataObservable: Observable<PidControllerData[]>;
-    private errorObservable: Observable<string>;
+    private pins: Observable<Pin[]>;
+    private valves: Observable<Valve[]>;
+    private pidControllerData: Observable<PidControllerData[]>;
+    private errors: Observable<string>;
 
     constructor() {
         this.socket = io(this.url);
 
-        this.pinsObservable = new Observable(observer => {
-            this.socket.on('pins', (pins: Pin[]) => {
-                observer.next(pins);
+        this.pins = new Observable(observer => {
+            this.socket.on('pins', (pinData: Pin[]) => {
+                observer.next(pinData);
             });
         });
 
-        this.valvesObservable = new Observable(observer => {
-            this.socket.on('valves', (valves: Valve[]) => {
-                observer.next(valves);
+        this.valves = new Observable(observer => {
+            this.socket.on('valves', (valveData: Valve[]) => {
+                observer.next(valveData);
             });
         });
 
-        this.pidControllersDataObservable = new Observable(observer => {
-            this.socket.on('controllers', (pidControllers: PidControllerData[]) => {
-                observer.next(pidControllers);
+        this.pidControllerData = new Observable(observer => {
+            this.socket.on('controllers', (pidControllerData: PidControllerData[]) => {
+                observer.next(pidControllerData);
             });
         });
 
-        this.errorObservable = new Observable(observer => {
-            this.socket.on('error', (error: string) => {
-                console.log('--- ' + error);
-                observer.next(error);
+        this.errors = new Observable(observer => {
+            this.socket.on('error', (errorData: string) => {
+                observer.next(errorData);
             });
         });
+
+        this.system = new Observable(observer => {
+            this.socket.on('system', (data: System) => {
+                observer.next(data);
+            })
+        })
     }
 
     getPins(): Observable<Pin[]> {
-        return this.pinsObservable;
+        return this.pins;
     }
 
     getValves(): Observable<Valve[]> {
-        return this.valvesObservable;
+        return this.valves;
     }
 
     getControllersData(): Observable<PidControllerData[]> {
-        return this.pidControllersDataObservable;
+        return this.pidControllerData;
     }
 
     getError(): Observable<string> {
-        return this.errorObservable;
+        return this.errors;
+    }
+
+    getSystem(): Observable<System> {
+        return this.system;
     }
 }
