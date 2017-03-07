@@ -7,7 +7,7 @@ module.exports = {
 
     // frontend application
     {
-      "name": "frontend",
+      "name": "Frontend",
       "script": "server/server.js",
       "exec_mode": 'fork',
       "cwd": "/",

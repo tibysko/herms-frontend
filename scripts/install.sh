@@ -8,7 +8,7 @@ REMOTE="$REMOTE_USER@$REMOTE_IP"
 # Main progrmam
 cd .. # repo root 
 npm install 
-./node_modules/.bin/ng build
+./node_modules/.bin/ng build --aot --prod
 
 ssh $REMOTE "mkdir -p $INSTALL_PATH"
 
