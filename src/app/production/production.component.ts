@@ -18,6 +18,9 @@ export class ProductionComponent {
     system: System = {
         HLT: {
             waterLevel: 0
+        },
+        HE: {
+            HeHwInActPos: 0
         }
     };
 
@@ -30,7 +33,7 @@ export class ProductionComponent {
         this.chart = chartInstance;
     }
 
-    private setupSystemData(){
+    private setupSystemData() {
         this.socketService.getSystem().subscribe((data: System) => {
             this.system = data;
         });
@@ -38,11 +41,12 @@ export class ProductionComponent {
 
     private setupChartData() {
         this.socketService.getControllersData().subscribe((data: PidControllerData[]) => {
-            this.shift = this.chart.series[0].data.length > this.NR_OF_VISIBLE_DATA_POINTS; 
+            this.shift = this.chart.series[0].data.length > this.NR_OF_VISIBLE_DATA_POINTS;
             let now = new Date();
 
-            this.chart.get('pidCtrlHLT').addPoint({ y: data[0].temperature, x: now }, this.redraw, this.shift);
-            this.chart.get('pidCtrlMLT').addPoint({ y: data[1].temperature, x: now }, this.redraw, this.shift);
+            this.chart.get('MltOut').addPoint({ y: data[1].output, x: now }, this.redraw, this.shift);
+            this.chart.get('MltTemp').addPoint({ y: data[1].temperature, x: now }, this.redraw, this.shift);
+            this.chart.get('HeHwInPos').addPoint({ y: this.system.HE.HeHwInActPos, x: now }, this.redraw, this.shift);
 
             this.chart.redraw();
         });
@@ -59,8 +63,9 @@ export class ProductionComponent {
             },
             title: { text: '' },
             series: [
-                { name: 'Pid controller HLT', id: 'pidCtrlHLT', data: [] },
-                { name: 'Pid controller MLT', id: 'pidCtrlMLT', data: [] }
+                { name: 'MLT Output', id: 'MltOut', data: [] },
+                { name: 'MLT Temperature', id: 'MltTemp', data: [] },
+                { name: 'HE_HW_IN Act pos', id: 'HeHwInPos', data: [] }
             ],
             xAxis: {
                 type: 'datetime',
@@ -74,7 +79,7 @@ export class ProductionComponent {
             },
             yAxis: {
                 title: {
-                    text: 'Temperature'
+                    text: 'Value'
                 }
             }
 

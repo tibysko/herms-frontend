@@ -1,7 +1,13 @@
 export interface System {
-    HLT: HLTValueMap
+    HLT: HLTValueMap,
+    HE: HEValueMap
 }
 
 export interface HLTValueMap {
     waterLevel: number
+}
+
+
+export interface HEValueMap {
+    HeHwInActPos: number
 }
