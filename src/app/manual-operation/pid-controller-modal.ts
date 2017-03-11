@@ -1,3 +1,5 @@
+
+
 export class PidControllerModal {
     constructor(
         public mode: string,
@@ -7,7 +9,14 @@ export class PidControllerModal {
         public ki: number,
         public kd: number,
         public output: number,
-        public setPoint: number
+        public setPoint: number, 
+        public outputLimits: OutputLimitsValueMap,
     ) { }
+}
 
+export class OutputLimitsValueMap {
+    constructor(
+    public min: number,
+    public max: number
+    ) { }
 }

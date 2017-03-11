@@ -43,7 +43,8 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
         output: 0,
         setPoint: 0,
         name: '',
-        longName: ''
+        longName: '',
+        outputLimits: {min: 0, max: 255}
     }
 
     constructor(private pinService: PinService,
@@ -71,7 +72,10 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
             name: pidController.name,
             output: config.output,
             setPoint: config.setPoint,
-            longName: pidController.longName
+            longName: pidController.longName,
+            outputLimits: config.outputLimits
+            
+
         }
 
         this.pidControllerModal.show();
@@ -100,7 +104,7 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
 
     getRowClass(valve: Valve) {
         let state = ValveState[valve.state];
-        
+
         if (state === ValveState.CLOSED)
             return "danger";
         else if (state === ValveState.OPENED) {
@@ -116,7 +120,9 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
             ki: modal.ki,
             kd: modal.kd,
             output: modal.output,
-            setPoint: modal.setPoint
+            setPoint: modal.setPoint,
+            outputLimits: modal.outputLimits
+
         }
 
         this.pidControllerService.setConfig(modal.name, config).then(data => {

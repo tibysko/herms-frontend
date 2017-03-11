@@ -5,4 +5,10 @@ export interface PidControllerConfig {
     kd: number;
     output: number;
     setPoint: number;
+    outputLimits: OutputLimitsValueMap;
 }
+export interface OutputLimitsValueMap {
+    min: number;
+    max: number;
+}
+
