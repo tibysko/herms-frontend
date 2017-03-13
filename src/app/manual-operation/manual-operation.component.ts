@@ -44,7 +44,9 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
         setPoint: 0,
         name: '',
         longName: '',
-        outputLimits: {min: 0, max: 255}
+        outputLimits: { min: 0, max: 255 },
+        errThreshold: 0,
+        sampleTime: 200
     }
 
     constructor(private pinService: PinService,
@@ -73,8 +75,9 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
             output: config.output,
             setPoint: config.setPoint,
             longName: pidController.longName,
-            outputLimits: config.outputLimits
-            
+            outputLimits: config.outputLimits,
+            errThreshold: config.errThreshold,
+            sampleTime: config.sampleTime
 
         }
 
@@ -121,7 +124,9 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
             kd: modal.kd,
             output: modal.output,
             setPoint: modal.setPoint,
-            outputLimits: modal.outputLimits
+            outputLimits: modal.outputLimits,
+            errThreshold: modal.errThreshold,
+            sampleTime: modal.sampleTime
 
         }
 

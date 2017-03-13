@@ -9,14 +9,16 @@ export class PidControllerModal {
         public ki: number,
         public kd: number,
         public output: number,
-        public setPoint: number, 
+        public setPoint: number,
         public outputLimits: OutputLimitsValueMap,
+        public errThreshold: number,
+        public sampleTime: number
     ) { }
 }
 
 export class OutputLimitsValueMap {
     constructor(
-    public min: number,
-    public max: number
+        public min: number,
+        public max: number
     ) { }
 }
