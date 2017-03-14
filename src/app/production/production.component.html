@@ -18,17 +18,18 @@
       </tbody>
       <thead>
         <tr>
-          <th width="20%">Temp HE</th>
-          <th width="20%">Temp HLT</th>
-          <th width="20%">Level HLT</th>
-          <th width="20%"></th>
+          <th width="20%">Temp HLT (C)</th>
+          <th width="20%">Level HLT (L)</th>
+          <th width="20%">Temp HE (C)</th>
+          <th width="20%">HE_HW_IN ActPos (%)</th>
           <th width="20%"></th>
         </tr>
       </thead>
       <tbody>
-        <td>67.0 C</td>
-        <td>{{system.HE.HeHwInActPos}}</td>
+        <td>{{tempHLT}}</td>
         <td>{{system.HLT.waterLevel}}</td>
+        <td>{{tempMLT}}</td>
+        <td>{{system.HE.HeHwInActPos}}</td>
       </tbody>
       <thead>
         <tr>
@@ -53,21 +54,21 @@
     <table class="table table-condensed">
       <thead>
         <tr>
-          <th width="20%">Act level (l)</th>
-          <th width="20%">Start level (l)</th>
+          <th width="20%">Act. Level (L)</th>
+          <th width="20%">Start Level (L)</th>
           <th width="20%"></th>
           <th width="20%"></th>
           <th width="20%"></th>
         </tr>
       </thead>
       <tbody>
-        <td>45.7</td>
+        <td>{{system.HLT.waterLevel}}</td>
         <td>50.1</td>
       </tbody>
       <thead>
         <tr>
-          <th width="20%">Mash water (l)</th>
-          <th width="20%">Sparge water (l)</th>
+          <th width="20%">Mash Water (L)</th>
+          <th width="20%">Sparge Water (L)</th>
           <th width="20%"></th>
           <th width="20%"></th>
           <th width="20%"></th>

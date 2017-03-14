@@ -24,6 +24,15 @@ export class ProductionComponent {
         }
     };
 
+    pidControllerData: PidControllerData = {
+        name: '',
+        output: '',
+        temperature: ''
+    };
+
+    tempHLT: any;
+    tempMLT: any;
+
     constructor(private socketService: SocketService) {
         this.options = this.getChartOptions();
         this.setupChartData();
@@ -39,8 +48,12 @@ export class ProductionComponent {
         });
     }
 
+
     private setupChartData() {
         this.socketService.getControllersData().subscribe((data: PidControllerData[]) => {
+            this.tempHLT = data[0].temperature;
+            this.tempMLT = data[1].temperature;
+
             this.shift = this.chart.series[0].data.length > this.NR_OF_VISIBLE_DATA_POINTS;
             let now = new Date();
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
-
+import { PidControllerData } from '../manual-operation/pid-controller-data.interface';
+import { System } from "app/core/system.interface";
 import { SocketService } from '../core/socket.service';
 import { Valve, ValveState } from '../model/valve.interface';
 
@@ -29,7 +29,42 @@ export class OverviewComponent implements OnInit, OnDestroy {
     static COLOR_GREEN: String = `rgba(0, 255, 0,1)`;
     static COLOR_RED: String = `rgba(255, 0, 0,1)`;
 
-    constructor(private socketService: SocketService) { }
+    system: System = {
+        HLT: {
+            waterLevel: 0
+        },
+        HE: {
+            HeHwInActPos: 0
+        }
+    };
+
+    pidControllerData: PidControllerData = {
+        name: '',
+        output: '',
+        temperature: ''
+    };
+
+    tempHLT: any;
+    tempMLT: any;
+
+
+    constructor(private socketService: SocketService) {
+        this.setupSystemData();
+        this.setupPidData();
+    }
+
+    private setupSystemData() {
+        this.socketService.getSystem().subscribe((data: System) => {
+            this.system = data;
+        });
+    }
+
+    private setupPidData() {
+        this.socketService.getControllersData().subscribe((data: PidControllerData[]) => {
+            this.tempHLT = data[0].temperature;
+            this.tempMLT = data[1].temperature;
+        });
+    }
 
     private getColor(valve: Valve) {
         if (valve) {

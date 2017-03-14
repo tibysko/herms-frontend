@@ -144,7 +144,7 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
     }
 
     stopClosingValve(valve) {
-        this.valveService.setState(valve.name, ValveState.STOP_CLOSE);
+        this.valveService.setState(valve.yname, ValveState.STOP_CLOSE);
     }
 
     startOpeningValve(valve) {
