@@ -1,8 +1,9 @@
 declare var $: any;
 
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
+import { Subscription  } from 'rxjs/Subscription';
 
 import { Valve, ValveState } from '../model/valve.interface';
 import { Motor } from '../model/motor';
@@ -21,13 +22,15 @@ import { SocketService } from '../core/socket.service';
     templateUrl: 'manual-operation.component.html'
 })
 
-export class ManualOperationComponent implements OnInit, AfterViewInit {
+export class ManualOperationComponent implements OnInit, AfterViewInit, OnDestroy {
+
+
     @ViewChild('childModal') public pidControllerModal: ModalDirective;
 
     motors: Motor[] = [];
     valves: Valve[] = [];
-    valvesObservable: any;
-    pidControllerObservable: any;
+    valveSubscription: Subscription;
+    pidControllerSubscription: Subscription;;
     pidControllers: PidController[] = [];
 
     modeToggles = [
@@ -85,7 +88,7 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.valvesObservable = this.socketService.getValves().subscribe((data: Valve[]) => {
+        this.valveSubscription = this.socketService.getValves().subscribe((data: Valve[]) => {            
             this.valves = data.sort();
         });
 
@@ -93,7 +96,7 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
             this.pidControllers = data.json() as PidController[];
         });
 
-        this.pidControllerObservable = this.socketService.getControllersData().subscribe((pidControllersData: PidControllerData[]) => {
+        this.pidControllerSubscription = this.socketService.getControllersData().subscribe((pidControllersData: PidControllerData[]) => {
             for (let pidController of this.pidControllers) {
                 for (let data of pidControllersData) {
                     if (pidController.name === data.name) {
@@ -103,6 +106,11 @@ export class ManualOperationComponent implements OnInit, AfterViewInit {
                 }
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.valveSubscription.unsubscribe();
+        this.pidControllerSubscription.unsubscribe();        
     }
 
     getRowClass(valve: Valve) {

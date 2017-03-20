@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Component, OnDestroy } from '@angular/core';
 import { SocketService } from '../core/socket.service';
 import { PidControllerData } from '../manual-operation/pid-controller-data.interface';
 import { System } from "app/core/system.interface";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'production',
     templateUrl: 'production.component.html'
 })
 
-export class ProductionComponent {
+export class ProductionComponent implements OnDestroy, OnInit {
+    pidControllerSubscription: Subscription;
+    systemSubscription: Subscription;
 
     private readonly NR_OF_VISIBLE_DATA_POINTS = 15;
     chart: any;
@@ -33,27 +36,34 @@ export class ProductionComponent {
     tempHLT: any;
     tempMLT: any;
 
-    constructor(private socketService: SocketService) {
+    constructor(private socketService: SocketService) { }
+
+    ngOnInit(): void {
         this.options = this.getChartOptions();
         this.setupChartData();
         this.setupSystemData();
     }
+
+    ngOnDestroy(): void {
+        this.pidControllerSubscription.unsubscribe();
+        this.systemSubscription.unsubscribe();
+    }
+
     saveInstance(chartInstance) {
         this.chart = chartInstance;
     }
 
     private setupSystemData() {
-        this.socketService.getSystem().subscribe((data: System) => {
+        this.systemSubscription = this.pidControllerSubscription = this.socketService.getSystem().subscribe((data: System) => {
             this.system = data;
         });
     }
 
-
     private setupChartData() {
-        this.socketService.getControllersData().subscribe((data: PidControllerData[]) => {
-            this.tempHLT = data[0].temperature;
+        this.pidControllerSubscription = this.socketService.getControllersData().subscribe((data: PidControllerData[]) => {
+			this.tempHLT = data[0].temperature;
             this.tempMLT = data[1].temperature;
-
+            
             this.shift = this.chart.series[0].data.length > this.NR_OF_VISIBLE_DATA_POINTS;
             let now = new Date();
 

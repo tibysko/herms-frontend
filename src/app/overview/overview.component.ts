@@ -3,6 +3,7 @@ import { PidControllerData } from '../manual-operation/pid-controller-data.inter
 import { System } from "app/core/system.interface";
 import { SocketService } from '../core/socket.service';
 import { Valve, ValveState } from '../model/valve.interface';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'overview',
@@ -10,7 +11,7 @@ import { Valve, ValveState } from '../model/valve.interface';
 })
 
 export class OverviewComponent implements OnInit, OnDestroy {
-    private connection: any;
+    private valveSubscription: Subscription;
 
     AUTO_SPARAGE: String;
     HE_CW_IN: String;
@@ -81,7 +82,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.connection = this.socketService.getValves().subscribe((valves: Valve[]) => {
+        this.valveSubscription = this.socketService.getValves().subscribe((valves: Valve[]) => {
             for (let valve of valves) {
                 this[valve.name] = this.getColor(valve);
             }
@@ -89,6 +90,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.connection.unsubscribe();
+        this.valveSubscription.unsubscribe();
     }
 }
