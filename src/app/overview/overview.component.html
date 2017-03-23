@@ -3,7 +3,9 @@
   <svg viewBox="0 0 700 550" preserveAspectRatio="xMidYMid meet">
   
     <!-- Graphics -->
-
+    <line fill="none" stroke="Black" stroke-width="5"  fill-opacity="null" x1="255" y1="135" x2="265" y2="135" id="svg_69"  /> <!-- T2 -->
+    <line fill="none" stroke="Black" stroke-width="5"  fill-opacity="null" x1="425" y1="100" x2="425" y2="112" id="svg_69"  /> <!-- T3 -->
+  
     <!-- Junctions -->
     <circle cx="253" cy="135" r="5" stroke="black" stroke-width="1" fill="rgb(204,102,0)" /> <!-- HE OUT -->
     <circle cx="425" cy="112" r="5" stroke="black" stroke-width="1" fill="rgb(204,102,0)" /> <!-- T3 -->
@@ -19,7 +21,7 @@
     <line stroke="rgb(204,102,0)" fill="none" stroke-width="3"  fill-opacity="null" x1="174" y1="112.5" x2="174" y2="212" id="svg_50"  /> <!-- MLT OUT > HE Ver. Line right side MLTt -->
     <line fill="none" stroke-width="3"  fill-opacity="null" x1="172.25" y1="112" x2="426.5" y2="112" id="svg_52"   stroke="rgb(204,102,0)"/> <!-- MLT OUT Hori after line above -->
     <line fill="none" stroke="rgb(204,102,0)" stroke-width="3"  fill-opacity="null" x1="425" y1="112.5" x2="425" y2="482" id="svg_69"  /> <!-- MLT OUT Vert - Right side HE after line above-->
-
+  
     <!-- KET IN -->
     <line fill="none" stroke-width="3"  fill-opacity="null" x1="196.5" y1="135" x2="253.5" y2="135" id="svg_52"   stroke="rgb(204,102,0)"/> <!-- HE OUT Hori going left -->
     <line stroke="rgb(204,102,0)" fill="none" stroke-width="3"  fill-opacity="null" x1="198" y1="135.5" x2="198" y2="350" id="svg_50"  /> <!-- KET_WORT_IN Vert line HE left side -->
@@ -52,6 +54,7 @@
     <rect fill="rgb(224,224,224)" stroke="#000" stroke-width="1.5"  fill-opacity="null" x="40" y="343.5" width="110" height="147" id="svg_46"/> <!-- KET -->
     <rect fill="rgb(224,224,224)" stroke="#000" stroke-width="1.5"  fill-opacity="null" x="223" y="144.5" width="60" height="156" id="svg_54"/> <!-- HE -->
     <rect fill="rgb(224,224,224)" stroke="#000" stroke-width="1.5"  fill-opacity="null" x="552.5" y="209.5" width="110" height="247" id="svg_72"/> <!-- HLT -->
+    <line fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="1.5, 1" fill-opacity="null" x1="40" y1="175" x2="150" y2="175" id="svg_73"  /> <!-- MLT false bottom -->
 
 
     <!-- Textboxes -->
@@ -66,10 +69,10 @@
 
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="237" y="233.824555" id="svg_74" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" 
   xml:space="preserve">HE</text>
-    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="265" y="138" id="svg_74" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">T2: {{tempMLT}} C</text>
-    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="380" y="100" id="svg_74" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">T3: {{tempMLT}} C</text>
-    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="347" y="270" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HE_HW_IN: {{system.HE.HeHwInActPos}} %</text>
-    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="347" y="152" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HE_HW_OUT</text>
+    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="270" y="139" id="svg_74" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">T2: {{tempMLT}} C</text>
+    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="380" y="95" id="svg_74" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">T3: {{tempMLT}} C</text>
+    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="349" y="270" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HE_HW_IN: {{system.HE.HeHwInActPos}} %</text>
+    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="349" y="152" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HE_HW_OUT</text>
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="329" y="214" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HE_CW_OUT</text>
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="329" y="333" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HE_CW_IN</text>
 
@@ -78,8 +81,9 @@
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="176" y="505" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">KET_WORT_OUT</text>
 
 
-    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="585" y="391.5" id="svg_76" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HLT</text>
-    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="585" y="420" id="svg_76" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">T1: {{tempHLT}} C</text>
+    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="585" y="350" id="svg_76" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HLT</text>
+    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="583" y="400" id="svg_76" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">T1: {{tempHLT}} C</text>
+    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="583" y="420" id="svg_76" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">L1: {{system.HE.waterLevel}} L</text>
 
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="289" y="427" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">WORT PUMP</text>
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="487" y="480" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HW PUMP</text>
@@ -97,11 +101,11 @@
 
     <!-- VALVE HE HW OUT -->
     <path stroke="#000"  stroke-width="1.5"  d="m360.08957,158.808909l9.50001,-16l9.5,16l-19.00001,0z"  [attr.fill]="HE_HW_OUT"  id="svg_9" transform="rotate(90 360.5887451171875,158.80906677246098) "/>
-    <path transform="rotate(-90 387.0887756347656,177.8088226318359) " stroke="#000"  stroke-width="1.5" [attr.fill]="HE_HW_OUT"  d="m387.589596,177.808945l9.50001,-16l9.5,16l-19.00001,0z" id="svg_10"/>
+    <path transform="rotate(-90 389.0887756347656,177.8088226318359) " stroke="#000"  stroke-width="1.5" [attr.fill]="HE_HW_OUT"  d="m389.589596,177.808945l9.50001,-16l9.5,16l-19.00001,0z" id="svg_10"/>
 
     <!-- VALVE HE HW IN -->
     <path stroke="#000" [attr.fill]="HE_HW_IN" stroke-width="1.5"  d="m360.08957,277.831409l9.50001,-16l9.5,16l-19.00001,0z" id="svg_11" transform="rotate(90 360.58874511718756,277.83088684082034) "/>
-    <path transform="rotate(-90 387.58874511718756,295.8305969238281) " stroke="#000" [attr.fill]="HE_HW_IN" stroke-width="1.5"  d="m387.08957,295.831409l9.50001,-16l9.5,16l-19.00001,0z" id="svg_12"/>
+    <path transform="rotate(-90 389.58874511718756,295.8305969238281) " stroke="#000" [attr.fill]="HE_HW_IN" stroke-width="1.5"  d="m389.08957,295.831409l9.50001,-16l9.5,16l-19.00001,0z" id="svg_12"/>
 
     <!-- VALVE KET_WORT_OUT -->
     <path stroke="#000" [attr.fill]="KET_WORT_OUT" stroke-width="1.5"  d="m287.057995,500.78075l9.50001,-16l9.5,16l-19.00001,0z" id="svg_13" transform="rotate(90 254.55816650390622,440.7810668945313) "/>
@@ -118,11 +122,11 @@
 
     <!-- VALVE HE CW IN -->
     <path transform="rotate(-180 325.56439208984375,315.28561401367185) " stroke="#000" [attr.fill]="HE_CW_IN" stroke-width="1.5"  d="m325.963494,315.285613l9.50001,-16l9.5,16l-19.00001,0z" id="svg_19"/>
-    <path stroke="#000" [attr.fill]="HE_CW_IN" stroke-width="1.5"  d="m306.064374,345.290533l9.50001,-16l9.5,16l-19.00001,0z" id="svg_20"/>
+    <path stroke="#000" [attr.fill]="HE_CW_IN" stroke-width="1.5"  d="m306.064374,346.290533l9.50001,-16l9.5,16l-19.00001,0z" id="svg_20"/>
 
     <!-- VALVE HE CW OUT -->
     <path transform="rotate(-180 325.56439208984375,195.7844085693359) " stroke="#000" [attr.fill]="HE_CW_OUT" stroke-width="1.5"  d="m325.563507,195.784405l9.50001,-16l9.5,16l-19.00001,0z" id="svg_21"/>
-    <path stroke="#000" [attr.fill]="HE_CW_OUT" stroke-width="1.5"  d="m306.564387,225.789325l9.50001,-16l9.5,16l-19.00001,0z" id="svg_22"/>
+    <path stroke="#000" [attr.fill]="HE_CW_OUT" stroke-width="1.5"  d="m306.564387,226.789325l9.50001,-16l9.5,16l-19.00001,0z" id="svg_22"/>
   
     <!-- VALVE MLT WORT IN -->
     <path transform="rotate(-180 262.3665283203125,60.78315734863281) " stroke="#000" [attr.fill]="MLT_WORT_IN" stroke-width="1.5"  d="m262.065631,60.783149l9.50001,-16l9.5,16l-19.00001,0z" id="MLT_WORT_IN_UPPER"/>
