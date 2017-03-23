@@ -54,8 +54,7 @@
     <rect fill="rgb(224,224,224)" stroke="#000" stroke-width="1.5"  fill-opacity="null" x="40" y="343.5" width="110" height="147" id="svg_46"/> <!-- KET -->
     <rect fill="rgb(224,224,224)" stroke="#000" stroke-width="1.5"  fill-opacity="null" x="223" y="144.5" width="60" height="156" id="svg_54"/> <!-- HE -->
     <rect fill="rgb(224,224,224)" stroke="#000" stroke-width="1.5"  fill-opacity="null" x="552.5" y="209.5" width="110" height="247" id="svg_72"/> <!-- HLT -->
-    <line fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="1.5, 1" fill-opacity="null" x1="40" y1="175" x2="150" y2="175" id="svg_73"  /> <!-- MLT false bottom -->
-
+  
 
     <!-- Textboxes -->
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="73" y="120" id="svg_87" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">MLT</text>
@@ -83,7 +82,7 @@
 
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="585" y="350" id="svg_76" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HLT</text>
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="583" y="400" id="svg_76" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">T1: {{tempHLT}} C</text>
-    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="583" y="420" id="svg_76" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">L1: {{system.HE.waterLevel}} L</text>
+    <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="583" y="420" id="svg_76" font-size="12" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">L1: {{system.HLT.waterLevel}} L</text>
 
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="289" y="427" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">WORT PUMP</text>
     <text fill="#000000" stroke="#000" stroke-width="0"  fill-opacity="null" x="487" y="480" id="svg_74" font-size="8" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">HW PUMP</text>
@@ -101,15 +100,15 @@
 
     <!-- VALVE HE HW OUT -->
     <path stroke="#000"  stroke-width="1.5"  d="m360.08957,158.808909l9.50001,-16l9.5,16l-19.00001,0z"  [attr.fill]="HE_HW_OUT"  id="svg_9" transform="rotate(90 360.5887451171875,158.80906677246098) "/>
-    <path transform="rotate(-90 389.0887756347656,177.8088226318359) " stroke="#000"  stroke-width="1.5" [attr.fill]="HE_HW_OUT"  d="m389.589596,177.808945l9.50001,-16l9.5,16l-19.00001,0z" id="svg_10"/>
+    <path transform="rotate(-90 391.5887756347656,177.4088226318359) " stroke="#000"  stroke-width="1.5" [attr.fill]="HE_HW_OUT"  d="m391.589596,177.408945l9.50001,-16l9.5,16l-19.00001,0z" id="svg_10"/>
 
     <!-- VALVE HE HW IN -->
     <path stroke="#000" [attr.fill]="HE_HW_IN" stroke-width="1.5"  d="m360.08957,277.831409l9.50001,-16l9.5,16l-19.00001,0z" id="svg_11" transform="rotate(90 360.58874511718756,277.83088684082034) "/>
-    <path transform="rotate(-90 389.58874511718756,295.8305969238281) " stroke="#000" [attr.fill]="HE_HW_IN" stroke-width="1.5"  d="m389.08957,295.831409l9.50001,-16l9.5,16l-19.00001,0z" id="svg_12"/>
-
+    <path transform="rotate(-90 391.58874511718756,295.8305969238281) " stroke="#000" [attr.fill]="HE_HW_IN" stroke-width="1.5"  d="m391.58957,295.831409l9.50001,-16l9.5,16l-19.00001,0z" id="svg_12"/>
+ 
     <!-- VALVE KET_WORT_OUT -->
-    <path stroke="#000" [attr.fill]="KET_WORT_OUT" stroke-width="1.5"  d="m287.057995,500.78075l9.50001,-16l9.5,16l-19.00001,0z" id="svg_13" transform="rotate(90 254.55816650390622,440.7810668945313) "/>
-    <path transform="rotate(-90 216.55816650390628,482.78106689453125) " stroke="#000" [attr.fill]="KET_WORT_OUT" stroke-width="1.5"  d="m207.057995,490.78075l9.50001,-16l9.5,16l-19.00001,0z" id="svg_14"/>
+    <path stroke="#000" [attr.fill]="KET_WORT_OUT" stroke-width="1.5"  d="m287.057995,500.78075l9.50001,-16l9.5,16l-19.00001,0z" id="svg_13" transform="rotate(90 254.45816650390622,440.7810668945313) "/>
+    <path transform="rotate(-90 226.05816650390628,492.38106689453125) " stroke="#000" [attr.fill]="KET_WORT_OUT" stroke-width="1.5"  d="m226.057995,492.38075l9.50001,-16l9.5,16l-19.00001,0z" id="svg_14"/>
 
     <!-- VALVE KET WORT IN -->
     <path transform="rotate(-180 206.5665283203125,295.78315734863281) " stroke="#000" [attr.fill]="KET_WORT_IN" stroke-width="1.5"  d="m205.565631,295.783149l9.50001,-16l9.5,16l-19.00001,0z" id="svg_15"/>
@@ -117,12 +116,12 @@
 
     <!-- VALVE MLT WORT OUT -->
     <path stroke="#000" [attr.fill]="MLT_WORT_OUT" stroke-width="1.5"  d="m283.057995,473.78075l9.50001,-16l9.5,16l-19.00001,0z" id="svg_17" transform="rotate(90 283.55816650390622,473.7810668945313) "/>
-    <path transform="rotate(-90 315.55816650390628,491.78106689453125) " stroke="#000" [attr.fill]="MLT_WORT_OUT" stroke-width="1.5"  d="m315.057995,491.78075l9.50001,-16l9.5,16l-19.00001,0z" id="svg_18"/>
+    <path transform="rotate(-90 315.25816650390628,491.78106689453125) " stroke="#000" [attr.fill]="MLT_WORT_OUT" stroke-width="1.5"  d="m315.257995,491.78075l9.50001,-16l9.5,16l-19.00001,0z" id="svg_18"/>
 
 
     <!-- VALVE HE CW IN -->
-    <path transform="rotate(-180 325.56439208984375,315.28561401367185) " stroke="#000" [attr.fill]="HE_CW_IN" stroke-width="1.5"  d="m325.963494,315.285613l9.50001,-16l9.5,16l-19.00001,0z" id="svg_19"/>
-    <path stroke="#000" [attr.fill]="HE_CW_IN" stroke-width="1.5"  d="m306.064374,346.290533l9.50001,-16l9.5,16l-19.00001,0z" id="svg_20"/>
+    <path transform="rotate(-180 325.86439208984375,315.28561401367185) " stroke="#000" [attr.fill]="HE_CW_IN" stroke-width="1.5"  d="m325.963494,315.285613l9.50001,-16l9.5,16l-19.00001,0z" id="svg_19"/>
+    <path stroke="#000" [attr.fill]="HE_CW_IN" stroke-width="1.5"  d="m306.364374,346.290533l9.50001,-16l9.5,16l-19.00001,0z" id="svg_20"/>
 
     <!-- VALVE HE CW OUT -->
     <path transform="rotate(-180 325.56439208984375,195.7844085693359) " stroke="#000" [attr.fill]="HE_CW_OUT" stroke-width="1.5"  d="m325.563507,195.784405l9.50001,-16l9.5,16l-19.00001,0z" id="svg_21"/>
