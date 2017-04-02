@@ -1,6 +1,7 @@
 export interface System {
     HLT: HLTValueMap,
-    HE: HEValueMap
+    HE: HEValueMap,
+    MLT: MLTValueMap  
 }
 
 export interface HLTValueMap {
@@ -10,4 +11,8 @@ export interface HLTValueMap {
 
 export interface HEValueMap {
     HeHwInActPos: number
+}
+
+export interface MLTValueMap {
+    mltOutTemp: number
 }

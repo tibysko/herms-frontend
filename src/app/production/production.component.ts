@@ -18,12 +18,15 @@ export class ProductionComponent implements OnDestroy, OnInit {
     options: Object;
     redraw: boolean = false;
     shift: boolean = false;
-    system: System = {
+     system: System = {
         HLT: {
             waterLevel: 0
         },
         HE: {
             HeHwInActPos: 0
+        },
+        MLT: {
+            mltOutTemp: 0
         }
     };
 

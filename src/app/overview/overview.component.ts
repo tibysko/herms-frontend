@@ -36,6 +36,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
         },
         HE: {
             HeHwInActPos: 0
+        },
+        MLT: {
+            mltOutTemp: 0
         }
     };
 
@@ -46,8 +49,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
     };
 
     tempHLT: any;
-    tempMLT: any;
-
+    tempMltOut: any;
+    tempHeOut: any;
 
     constructor(private socketService: SocketService) {
         this.setupSystemData();
@@ -63,7 +66,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     private setupPidData() {
         this.socketService.getControllersData().subscribe((data: PidControllerData[]) => {
             this.tempHLT = data[0].temperature;
-            this.tempMLT = data[1].temperature;
+            this.tempHeOut = data[1].temperature;
         });
     }
 
