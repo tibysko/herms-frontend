@@ -1,11 +1,10 @@
-<div class="well well-lg">
+
   <h3>Valves</h3>
   <div class="table-responsive">
     <table class="table table-condensed ">
       <thead>
         <tr>
           <th>#</th>
-          <th>Auto</th>
           <th>Close</th>
           <th>Open</th>
         </tr>
@@ -13,17 +12,14 @@
       <tbody>
         <tr *ngFor="let valve of valves" [ngClass]="getRowClass(valve)">
           <td>{{valve.name}}</td>
-          <td><button class="btn btn-sm btn-raised" disabled>Auto</button></td>
           <td><button class="btn btn-sm btn-raised" (mousedown)="startClosingValve(valve)" (mouseup)="stopClosingValve(valve)">Close</button></td>
           <td><button class="btn btn-sm btn-raised" (mousedown)="startOpeningValve(valve)" (mouseup)="stopOpeningValve(valve)">Open</button></td>
         </tr>
       </tbody>
     </table>
   </div>
-</div>
-<div class="row">
   <div *ngFor="let pidController of pidControllers" class="col-sm-6">
-    <div class="well well-lg">
+    
       <h3>
         <span>{{pidController.longName}}</span>
         <span class="glyphicon glyphicon-pencil pull-right" style="cursor: pointer;" aria-hidden="true" (click)="openPidControllerModal(pidController)"></span>
@@ -82,17 +78,14 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    
   </div>
-</div>
-<div class="well well-lg"> 
   <h3>Pumps</h3>
   <div class="table-responsive">
     <table class="table table-condensed">
       <thead>
         <tr>
           <th>#</th>
-          <th>Auto</th>
           <th>Stop</th>
           <th>Start</th>
         </tr>
@@ -100,14 +93,12 @@
       <tbody>
         <tr *ngFor="let motor of motors">
           <td>{{motor.getName()}}</td>
-          <td><button class="btn btn-sm btn-raised" disabled>Auto</button></td>
           <td><button class="btn btn-sm btn-raised" (click)="stopMotor(motor)">Stop</button></td>
           <td><button class="btn btn-sm btn-raised" (click)="startMotor(motor)">Start</button></td>
         </tr>
       </tbody>
     </table>
   </div>
-</div>
 <!-- PidController modal -->
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

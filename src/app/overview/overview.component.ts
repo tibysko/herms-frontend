@@ -31,14 +31,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
     static COLOR_RED: String = `rgba(255, 0, 0,1)`;
 
     system: System = {
-        HLT: {
-            waterLevel: 0
-        },
-        HE: {
-            HeHwInActPos: 0
-        },
-        MLT: {
-            mltOutTemp: 0
+        data: {
+            waterLevelHlt: 0,
+            tempHeOut: 0
         }
     };
 
@@ -50,7 +45,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     tempHLT: any;
     tempMltOut: any;
-    tempHeOut: any;
 
     constructor(private socketService: SocketService) {
         this.setupSystemData();
@@ -66,7 +60,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     private setupPidData() {
         this.socketService.getControllersData().subscribe((data: PidControllerData[]) => {
             this.tempHLT = data[0].temperature;
-            this.tempHeOut = data[1].temperature;
+            this.tempMltOut = data[1].temperature;
         });
     }
 

@@ -1,18 +1,9 @@
 export interface System {
-    HLT: HLTValueMap,
-    HE: HEValueMap,
-    MLT: MLTValueMap  
+    data: dataValueMap
 }
 
-export interface HLTValueMap {
-    waterLevel: number
+export interface dataValueMap {
+    waterLevelHlt: number,
+    tempHeOut: number
 }
 
-
-export interface HEValueMap {
-    HeHwInActPos: number
-}
-
-export interface MLTValueMap {
-    mltOutTemp: number
-}
