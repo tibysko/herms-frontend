@@ -12,8 +12,10 @@
       <tbody>
         <tr *ngFor="let valve of valves" [ngClass]="getRowClass(valve)">
           <td>{{valve.name}}</td>
-          <td><button class="btn btn-sm btn-raised" (mousedown)="startClosingValve(valve)" (mouseup)="stopClosingValve(valve)">Close</button></td>
-          <td><button class="btn btn-sm btn-raised" (mousedown)="startOpeningValve(valve)" (mouseup)="stopOpeningValve(valve)">Open</button></td>
+ <!--          <td><button class="btn btn-sm btn-raised" (mousedown)="startClosingValve(valve)" (mouseup)="stopClosingValve(valve)">Close</button></td>
+          <td><button class="btn btn-sm btn-raised" (mousedown)="startOpeningValve(valve)" (mouseup)="stopOpeningValve(valve)">Open</button></td> -->
+          <td><button class="btn btn-sm btn-raised" (mousedown)="startClosingValve(valve)" >Close</button></td>
+          <td><button class="btn btn-sm btn-raised" (mousedown)="startOpeningValve(valve)" >Open</button></td>
         </tr>
       </tbody>
     </table>
@@ -48,7 +50,7 @@
             <td>Output:</td>
             <td>{{pidController.data.output}}</td>
           </tr>
-          <tr>
+   <!--       <tr>
             <td>Kp:</td>
             <td>{{pidController.config.kp}}</td>
           </tr>
@@ -75,7 +77,7 @@
           <tr>
             <td>Error Threshold:</td>
             <td>{{pidController.config.errThreshold}}</td>
-          </tr>
+          </tr>-->
         </tbody>
       </table>
     
@@ -137,7 +139,7 @@
               <input type="number" class="form-control" id="output" name="output" placeholder="Output" [(ngModel)]="modal.output" required>
             </div>
           </div>
-          <div class="form-group form-group-lg he-form-group-lg is-empty">
+         <!-- <div class="form-group form-group-lg he-form-group-lg is-empty">
             <label for="Kp" class="col-sm-2 control-label">Kp</label>
             <div class="col-sm-10">
               <input type="number" class="form-control" id="kp" name="kp" placeholder="kp" [(ngModel)]="modal.kp" required>
@@ -177,7 +179,7 @@
             <div class="col-sm-10">
               <input type="number" class="form-control" id="errThreshold" name="errThreshold" placeholder="errThreshold" [(ngModel)]="modal.errThreshold" required>
             </div>
-          </div>
+          </div>-->
         </form>
       </div>
       <div class="modal-footer">
